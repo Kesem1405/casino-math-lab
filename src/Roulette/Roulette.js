@@ -204,14 +204,13 @@ const Roulette = () => {
                     ...state[id],
                     icon,
                     number: state[id].number + value,
-                    probability, // Add probability
+                    probability,
                 };
-                console.log("probability:" + probability, "Bet type: "+ betType);
             } else {
                 state[id] = {
                     icon,
                     number: value,
-                    probability, // Add probability
+                    probability,
 
                 };
                 console.log("probability:" + probability, "Bet type: "+ betType);

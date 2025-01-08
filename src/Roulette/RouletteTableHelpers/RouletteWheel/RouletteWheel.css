@@ -8,13 +8,18 @@
     --spinningAnimationSpeed: 30s;
     --spinningSpeed: 9s;
     width: 374px;
-    margin: 0 auto;
+    margin: 0;
+    position: absolute;
+    right: 20px; /* Move to the right side */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust to vertically center */
     user-select: none;
     font-size: 18px;
     font-weight: 400;
     font-family: Helvetica, sans-serif;
     line-height: 1.15;
 }
+
 
 .roulette-wheel-bet-number:nth-child(1) {
     transform: rotateZ(9.4736842105263deg);
