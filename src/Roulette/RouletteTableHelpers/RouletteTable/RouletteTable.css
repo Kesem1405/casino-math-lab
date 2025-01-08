@@ -141,9 +141,7 @@
     padding-top: 25px;
     padding-bottom: 25px;
     text-align: center;
-    /* width: 50px; */
     width: 7.14%;
-    /* font-size: 30px; */
     color: #fff;
 }
 .red-item {
@@ -160,10 +158,6 @@
 }
 
 .zero-item {
-    /* background-color: green; */
-    /* border-bottom: 3px solid white; */
-    /* padding-top: 110px;
-    padding-bottom: 111px; */
     padding-top: 50px;
     padding-bottom: 36.8px;
 }
@@ -182,10 +176,7 @@
 .zero-item:hover,
 .red-item:hover,
 .black-item:hover
-    /*
-    .column-item:hover,
-    .doz-item:hover,
-    .outside-section:hover*/ {
+{
     background-color: var(--hover);
     cursor: pointer;
 }
@@ -194,17 +185,13 @@
     position: relative;
     border: 3px solid #fff;
     border-top: none;
-    /* background-color: green; */
     padding-top: 25px;
     padding-bottom: 25px;
     text-align: center;
-    /* width: 50px; */
     width: 7.14%;
-    /* font-size: 30px; */
     color: #fff;
 }
 
-/* to change this way */
 .column-item[data-action="1ST_COLUMN"] {
     border-bottom: 1px solid #fff;
     margin-bottom: -1px;
@@ -217,7 +204,6 @@
 .roulette-table-container-second {
     display: flex;
     justify-content: center;
-    /* background-color: green; */
     width: calc(100% - 7.14% - 7.14%);
     margin: 0 auto;
     height: 70px;
@@ -231,20 +217,14 @@
     justify-content: center;
     align-items: center;
     flex: 1;
-    /* flex-basis: 220px; */
     border: solid #fff;
-    /* background-color: green; */
-    /* padding-top: 15px; */
-    /* padding-bottom: 30px; */
     text-align: center;
     height: 100%;
-    /* font-size: 30px; */
     color: #fff;
 }
 
 .roulette-table-container-third {
     display: flex;
-    /* background-color: green; */
     width: calc(100% - 7.14% - 7.14%);
     margin: 0 auto;
     /* height: 150px; */
@@ -254,15 +234,10 @@
 
 .outside-section {
     position: relative;
-    /* flex-basis: 107px; */
     flex: 1;
     border: solid #fff;
-    /* background-color: green; */
-    /* padding-top: 15px;
-    padding-bottom: 30px; */
     text-align: center;
     height: 70px;
-    /* font-size: 30px; */
     color: #fff;
     display: flex;
     justify-content: center;
@@ -291,7 +266,6 @@
     transform: rotate(-90deg);
 }
 
-/* sm */
 @media (max-width: 640px) {
     .roulette-table-container {
         font-size: 18px;

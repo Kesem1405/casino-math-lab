@@ -10,9 +10,9 @@
     width: 374px;
     margin: 0;
     position: absolute;
-    right: 20px; /* Move to the right side */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust to vertically center */
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
     user-select: none;
     font-size: 18px;
     font-weight: 400;
@@ -133,19 +133,7 @@
     transform: rotateZ(350.52631578947deg);
 }
 
-/* Formula: (SEEMS LIKE THIS NEEDS TO BE REVISED)
-const $SLICES_NUMBER = 38  // roulette-wheel-bet-number of slices (36 + 0 + 00)
-const $SPINS = 8 // the roulette-wheel-bet-number of laps the ball spins before resting
-const $PITWIDTH = 32 // the width of each pit
-const $RIMZISE = 6 // size of the bevelled rim edge
-const $SINGLE_SPIN = 9 // Math.floor(360 / 38)
 
-const $INDEX = 0 // (this means the element position in DOM, 0 bet is not the index 0)
-
-const $STEP_1 = -(360 * $SPINS - ($PITWIDTH * 2 + $RIMZISE) + $SINGLE_SPIN)
-const $STEP_2 =  $STEP_1 + $INDEX * $SINGLE_SPIN
-console.log($STEP_2)
-*/
 .roulette-wheel-inner[data-spinToIndex]::before{
     transition: transform 9s ease-out;
     content: '\2022';
@@ -260,7 +248,7 @@ console.log($STEP_2)
     transform: rotateZ(-2485deg);
 }
 .roulette-wheel-inner[data-spintoindex='36']::before {
-    transform: rotateZ(-2477deg); /* chngd */
+    transform: rotateZ(-2477deg);
 }
 .roulette-wheel-inner[data-spintoindex='37']::before {
     transform: rotateZ(-2468deg);
@@ -376,16 +364,7 @@ console.log($STEP_2)
     font-size: 60px;
     z-index: 5;
     border-radius: 0;
-    display: flex; /* 🚨🚨🚨 IMPORTANT 🚨🚨🚨 DO NOT REMOVE THIS 🚨🚨🚨 */
-    /* The problem is that by some reasons the wheel ball worked fine while
-    I was developing it. But when I tried to upload this to Codesandbox
-    the roulette wheel ball turned out to be not "centered" (https://i.imgur.com/GBExbD2.png).
-
-    Idk why I decided to to try to set `display: flex` but this worked.
-
-    First I thought the problem might be due to different line-height
-    but after playing with this property I understand it's not due to it.
-    */
+    display: flex;
 }
 
 .roulette-wheel-inner.rest::before {

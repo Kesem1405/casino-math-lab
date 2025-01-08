@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Roulette from './Roulette/Roulette'; // Updated Roulette Component
+import Roulette from './Roulette/Roulette';
 import './App.css';
 
 const App = () => {
-    const [language, setLanguage] = useState(null); // Language selection
+    const [language, setLanguage] = useState(null);
 
     const handleLanguageSelection = (lang) => {
         setLanguage(lang);

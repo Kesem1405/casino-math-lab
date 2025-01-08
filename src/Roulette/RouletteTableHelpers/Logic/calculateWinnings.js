@@ -21,13 +21,11 @@ const columns = {
             return 0;
         }
 
-        // Initialize betAmount.payload as an empty array if it is undefined
         const payload = Array.isArray(betAmount.payload) ? betAmount.payload : [];
 
-        // Check for the case of Zero bet
         if (winningNumber === 0) {
             if (betType === 'ZERO') {
-                return betAmount.amount * 36; // Usually pays 35 to 1, but adjusted for your rules
+                return betAmount.amount * 36;
             }
             return 0;
         }
@@ -45,7 +43,7 @@ const columns = {
                 const base = parseInt(betAmount.betId, 10);
                 for (let i = 0; i < 3; i++) {
                     if (base + i === winningNumber) {
-                        return betAmount.amount * 12; // STREET bet pays 11:1, hence multiplier is 12
+                        return betAmount.amount * 12;
                     }
                 }
                 return 0;
@@ -55,7 +53,7 @@ const columns = {
                 const base = parseInt(betAmount.betId, 10);
                 for (let i = 0; i < 6; i++) {
                     if (base + i === winningNumber) {
-                        return betAmount.amount * 6; // DOUBLE STREET pays 5:1, hence multiplier is 6
+                        return betAmount.amount * 6;
                     }
                 }
                 return 0;
@@ -67,7 +65,7 @@ const columns = {
                     topLeft, topLeft + 1, topLeft + 3, topLeft + 4
                 ];
                 if (cornerNumbers.includes(winningNumber)) {
-                    return betAmount.amount * 9; // CORNER bet pays 8:1, hence multiplier is 9
+                    return betAmount.amount * 9;
                 }
                 return 0;
             }
@@ -113,8 +111,9 @@ const columns = {
     };
 
 
+
     export const calculateTotalWinningProbability = (bets) => {
-    const totalNumbers = 37; // Including 0, so 37 numbers in total
+    const totalNumbers = 37;
     let coveredNumbers = new Set();
 
     Object.keys(bets).forEach((betId) => {
@@ -192,7 +191,7 @@ const columns = {
 };
 
 export const calculateBetProbability = (betType) => {
-    const totalNumbers = 37; // Including 0 (European roulette), 37 numbers in total
+    const totalNumbers = 37;
     switch (betType) {
         case 'STRAIGHT_UP':
             return 1 / totalNumbers;
@@ -228,7 +227,6 @@ export const calculateBetProbability = (betType) => {
 export const getBetType = (betId) => {
     if (!betId || typeof betId !== 'string') return null;
 
-    // Check for single number bets
     if (/^\d+$/.test(betId)) {
         return 'STRAIGHT_UP';
     }
@@ -264,7 +262,6 @@ export const getBetType = (betId) => {
     if (betId === ACTION_TYPES.BLACK) return 'BLACK';
     if (betId === 'ZERO') return 'ZERO';
 
-    // If no match, return null
     return null;
 };
 

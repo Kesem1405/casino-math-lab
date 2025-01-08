@@ -6,6 +6,7 @@ import whiteChip from './images/white-chip.png';
 import blueChip from './images/blue-chip.png';
 import blackChip from './images/black-chip.png';
 import cyanChip from './images/cyan-chip.png';
+import {WinningModal} from "./WinningModal/WinningModal";
 import './Roulette.css';
 import {
     calculateBetProbability,
@@ -47,13 +48,15 @@ const calcTotalBet = (bets) => {
 
 const Roulette = () => {
     const [bets, setBets] = useState({});
-    const [isDebug, setIsDebug] = useState(false);
+    const [isDebug] = useState(false);
     const [activeChip, setActiveChip] = useState(Object.keys(chipsMap)[0]);
-    const [shouldShowData, setShouldShowData] = useState(false);
+    const [shouldShowData] = useState(false);
     const [betHistory, setBetHistory] = useState([]);
-    const [balance, setBalance] = useState(10000); // Starting balance
+    const [balance, setBalance] = useState(10000);
     const [currentRoundBet, setCurrentRoundBet] = useState(0);
     const [roundWinnings, setRoundWinnings] = useState(null);
+    const [showWinningModal, setShowWinningModal] = useState(false);
+    const [winningAmount, setWinningAmount] = useState(0);
 
     const [isRouletteWheelSpinning, setIsRouletteWheelSpinning] = useState(false);
     const [rouletteWheelStart, setRouletteWheelStart] = useState(false);
@@ -88,15 +91,15 @@ const Roulette = () => {
     }, [isRouletteWheelSpinning]);
 
     const handleDoSpin = () => {
-        setIsRouletteWheelSpinning(false); // Reset state to ensure proper re-render
+        setIsRouletteWheelSpinning(false);
         setRouletteWheelStart(false);
         wheelSpinSound.current.pause();
         wheelSpinSound.current.currentTime = 0;
         wheelSpinSound.current.play();
         setTimeout(() => {
-            setRouletteWheelStart(true); // Trigger animation
+            setRouletteWheelStart(true);
             setIsRouletteWheelSpinning(true);
-        }, 50); // Small delay for re-render
+        }, 50);
     };
 
     const handleUndo = () => {
@@ -104,8 +107,6 @@ const Roulette = () => {
             alert("No bets to undo!");
             return;
         }
-
-        // Get the last bet from history
         const lastBet = betHistory[betHistory.length - 1];
         if (!lastBet) {
             console.error("Bet history is empty, nothing to undo.");
@@ -114,16 +115,13 @@ const Roulette = () => {
 
         const { id, value } = lastBet;
 
-        // Update `bets` to reflect the removal of the last bet
         setBets((prevState) => {
             const state = { ...prevState };
 
             if (state[id]) {
                 if (state[id].number === value) {
-                    // If the last bet is the only bet on this spot, remove it entirely
                     delete state[id];
                 } else {
-                    // Otherwise, subtract the last bet's value
                     state[id].number -= value;
                 }
             } else {
@@ -133,21 +131,22 @@ const Roulette = () => {
             return state;
         });
 
-        // Remove the last bet from history
         setBetHistory((prev) => prev.slice(0, -1));
 
-        // Refund the bet amount
         setBalance((prev) => prev + value);
         setCurrentRoundBet((prev) => prev - value);
     };
 
 
+    const handleCloseModal = () => {
+        setShowWinningModal(false);
+    };
 
     const handleClean = () => {
         const totalRefund = calcTotalBet(bets);
 
         setBets({});
-        setBalance((prev) => prev + totalRefund); // Refund all bets
+        setBalance((prev) => prev + totalRefund);
         setCurrentRoundBet(0);
     };
     const handleEndSpin = () => {
@@ -155,7 +154,7 @@ const Roulette = () => {
         let totalWinnings = 0;
         let winningsDetails = [];
 
-        const winningBet = parseInt(rouletteWheelBet); // The winning number (ensure it's parsed as a number)
+        const winningBet = parseInt(rouletteWheelBet);
 
         Object.entries(bets).forEach(([betId, { number }]) => {
             const betType = getBetType(betId);
@@ -170,10 +169,10 @@ const Roulette = () => {
             }
         });
 
-        console.log(`Winning Number: ${winningBet}, Total Winnings: ${totalWinnings}`);
-        winningsDetails.forEach((detail) =>
-            console.log(`Bet ${detail.betId} resulted in winnings: ${detail.winnings}`)
-        );
+        if (totalWinnings > 0) {
+            setWinningAmount(totalWinnings);
+            setShowWinningModal(true);
+        }
 
         setBalance((prev) => prev + totalWinnings);
         setRoundWinnings({ total: totalWinnings, details: winningsDetails });
@@ -218,7 +217,7 @@ const Roulette = () => {
             return state;
         });
 
-        setBetHistory((prev) => [...prev, { id, value, probability }]); // Log the bet with its probability
+        setBetHistory((prev) => [...prev, { id, value, probability }]);
         setBalance((prev) => prev - value);
         setCurrentRoundBet((prev) => prev + value);
     };
@@ -232,7 +231,7 @@ const Roulette = () => {
     const totalProbability = calculateTotalWinningProbability(bets);
 
     return (
-        <div>
+        <div className="body">
             <h1 className="heading">React Casino Roulette</h1>
             <div className="balance">Balance: ${balance}</div>
             <p>Total Winning Probability: {(totalProbability * 100).toFixed(2)}%</p>
@@ -264,6 +263,7 @@ const Roulette = () => {
                     </button>
                 </div>
             </div>
+            {showWinningModal && <WinningModal amount={winningAmount}  onClose={handleCloseModal} />}
             <div className="roulette-wrapper">
                 <RouletteTable
                     onBet={({ id }) => addBet(id)}
@@ -296,10 +296,6 @@ const Roulette = () => {
                     <div className="buttons">
                         <button type="button" onClick={handleUndo}>Undo</button>
                         <button type="button" onClick={handleClean}>Clean</button>
-                        <button type="button" onClick={() => setIsDebug((prev) => !prev)}>Debug</button>
-                        <button type="button" onClick={() => setShouldShowData((prev) => !prev)}>
-                            {shouldShowData ? 'Hide' : 'Show'} data
-                        </button>
                     </div>
                 </div>
                 <div>
