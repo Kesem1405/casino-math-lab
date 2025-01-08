@@ -1,26 +1,21 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
-import { ZeroBets } from './RouletteTableHelpers/ZeroBets';
-import  NumberBets  from './RouletteTableHelpers/NumberBets/NumberBets';
-import  Columns from './RouletteTableHelpers/Column/Column';
-import  Dozens  from './RouletteTableHelpers/Dozens/Dozens';
-import { BottomBets } from './RouletteTableHelpers/BottomBets';
-import { RouletteTableContext } from './RouletteTableHelpers/RouletteTableContext';
-import { ACTION_TYPES } from './RouletteTableHelpers/Constants';
-import config from './Helpers/table.json';
-import { hasOwn } from './RouletteTableHelpers/utils';
-import { classNames } from './Helpers/ClassNames';
-import PropTypes from 'prop-types';
-
-
+import { ZeroBets } from '../ZeroBets';
+import NumberBets from '../NumberBets/NumberBets';
+import Columns from '../Column/Column';
+import Dozens from '../Dozens/Dozens';
+import { BottomBets } from '../BottomBets';
+import { RouletteTableContext } from '../RouletteTableContext';
+import { ACTION_TYPES } from '../Constants';
+import config from '../../Helpers/table.json';
+import { hasOwn } from '../utils';
+import { classNames } from '../../Helpers/ClassNames';
 import './RouletteTable.css';
 
-export const RouletteTable = ({ onBet, bets, isDebug }) => {
+export const RouletteTable = ({ onBet, bets, isDebug = false, isRouletteWheelSpinning }) => {
     const tableRef = useRef(null);
 
     useEffect(() => {
-        if (tableRef.current === null) {
-            return;
-        }
+        if (!tableRef.current) return;
 
         const listener = (event) => {
             const highlightElement = event.target.closest('[data-highlight]');
@@ -31,37 +26,28 @@ export const RouletteTable = ({ onBet, bets, isDebug }) => {
 
             const action = (highlightElement ?? betElement)?.dataset?.action;
 
-            if (
-                (!highlightData || highlightData === '') &&
-                (!betData || betData === '')
-            ) {
+            if (!highlightData && !betData) {
                 console.error('No data in [data-bet] or [data-highlight]');
                 return;
             }
 
-            if (!action || action === '') {
+            if (!action) {
                 console.error('Action is undefined');
                 return;
             }
 
-            const isActionSupported = Object.keys(ACTION_TYPES).includes(action);
-
-            if (!isActionSupported) {
+            if (!Object.keys(ACTION_TYPES).includes(action)) {
                 console.error('Unsupported action', action);
                 return;
             }
-
-            /* Checks are done */
 
             const payloadData = highlightData ?? betData;
 
             const getPayload = () => {
                 const firstId = payloadData.split('-')[0];
-
                 if (hasOwn(config, firstId)) {
                     return config[firstId].map((item) => `${item}`);
                 }
-
                 return payloadData.split('-').map((item) => item);
             };
 
@@ -76,20 +62,14 @@ export const RouletteTable = ({ onBet, bets, isDebug }) => {
 
         tableRef.current.addEventListener('click', listener);
 
-        return () => {
-            tableRef.current?.removeEventListener('click', listener);
-        };
+        return () => tableRef.current?.removeEventListener('click', listener);
     }, [onBet]);
 
     const doHighlight = (betId) => {
-        if (tableRef.current === null) {
-            return;
-        }
+        if (!tableRef.current) return;
 
         const hoverClass = 'item-hover';
-
         const element = tableRef.current.querySelector(`[data-bet="${betId}"]`);
-
         element?.classList.toggle(hoverClass);
     };
 
@@ -98,27 +78,15 @@ export const RouletteTable = ({ onBet, bets, isDebug }) => {
             const highlightData = event.currentTarget.dataset.highlight;
             const toHighlight = highlightData?.split('-');
 
-            const firstHighlight = toHighlight?.[0];
+            if (!toHighlight?.[0]) return;
 
-            if (!firstHighlight) {
+            if (config[toHighlight[0]]) {
+                doHighlight(toHighlight[0]);
+                config[toHighlight[0]].forEach((bet) => doHighlight(`${bet}`));
                 return;
             }
 
-            if (Object.keys(config).includes(firstHighlight)) {
-                doHighlight(firstHighlight);
-
-                if (!config[firstHighlight]) {
-                    console.error('Config does not contain the key', firstHighlight);
-                    return;
-                }
-
-                config[firstHighlight].forEach((bet) => doHighlight(`${bet}`));
-                return;
-            }
-
-            toHighlight?.forEach((element) => {
-                doHighlight(element);
-            });
+            toHighlight.forEach((element) => doHighlight(element));
         },
         [],
     );
@@ -130,34 +98,23 @@ export const RouletteTable = ({ onBet, bets, isDebug }) => {
 
     return (
         <RouletteTableContext.Provider value={contextValue}>
-            <div
-                className={classNames('roulette-table-container', { debug: isDebug })}
-                ref={tableRef}
-            >
+            <div className={classNames('roulette-table-container', { debug: isDebug })} ref={tableRef}>
                 <section className="roulette-table-container-first">
-                    <ZeroBets />
-                    <NumberBets />
-                    <Columns />
+                    <ZeroBets isRouletteWheelSpinning={isRouletteWheelSpinning} />
+                    <NumberBets isRouletteWheelSpinning={isRouletteWheelSpinning} />
+                    <Columns isRouletteWheelSpinning={isRouletteWheelSpinning} />
                 </section>
                 <section className="roulette-table-container-second">
-                    <Dozens />
+                    <Dozens isRouletteWheelSpinning={isRouletteWheelSpinning} />
                 </section>
                 <div className="roulette-table-container-third">
-                    <BottomBets />
+                    <BottomBets isRouletteWheelSpinning={isRouletteWheelSpinning} />
                 </div>
             </div>
         </RouletteTableContext.Provider>
     );
 };
 
-RouletteTable.propTypes = {
-    onBet: PropTypes.func.isRequired,
-    bets: PropTypes.object.isRequired,
-    isDebug: PropTypes.bool,
-};
-
 RouletteTable.defaultProps = {
     isDebug: false,
 };
-
-export default RouletteTable;

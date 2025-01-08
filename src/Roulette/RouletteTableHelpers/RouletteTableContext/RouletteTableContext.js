@@ -1,15 +1,10 @@
 import { createContext } from 'react';
-import type { MouseEvent } from 'react';
-import type  IRouletteTableProps  from '../RouletteTable';
 
-export interface IRouletteTableContextProps {
-    bets: IRouletteTableProps['bets'];
-    onBetCatcherHover: (event: MouseEvent<HTMLDivElement>) => void;
-}
+// Define the context with default values
+const defaultContextValues = {
+    bets: {},  // Default bets could be an empty object (adjust based on the actual structure)
+    onBetCatcherHover: () => null,  // Default function to avoid errors
+};
 
-export const RouletteTableContext = createContext<IRouletteTableContextProps>({
-    bets: {},
-    onBetCatcherHover: () => null,
-});
-export default class IRouletteTableProps {
-}
+// Create the context and provide default values
+export const RouletteTableContext = createContext(defaultContextValues);

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
-import  Chip  from '../RouletteTableHelpers/Chip/Chip';
-import { RouletteTableContext } from './RouletteTableContext';
+import  Chip  from '../Chip/Chip';
+import { RouletteTableContext } from '../RouletteTableContext';
 
-import { shouldRenderChip, findChipIcon } from './configs';
-import { ACTION_TYPES } from './Constants/Constants';
+import { shouldRenderChip, findChipIcon } from '../configs';
+import { ACTION_TYPES } from '../Constants';
 
 export const BottomBets = () => {
     const { onBetCatcherHover, bets } = useContext(RouletteTableContext);

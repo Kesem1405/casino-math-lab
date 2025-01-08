@@ -1,7 +1,8 @@
+// helpers/WheelNumbers.js
 import { useState, useEffect } from 'react';
 import { getRandomArrayItem } from './getRandomArrayItem';
 
-const WheelNumbers = () => {
+const useWheelNumbers = () => {
     const [wheelNumbers, setWheelNumbers] = useState([]);
 
     useEffect(() => {
@@ -20,9 +21,6 @@ const WheelNumbers = () => {
 
             const finalArray = [];
             randomNumbers.forEach((number, index) => {
-                if (index === 18) {
-                    finalArray.push('00');
-                }
                 finalArray.push(number);
             });
             finalArray.push('0');
@@ -32,9 +30,9 @@ const WheelNumbers = () => {
 
         const numbers = generateWheelNumbers();
         setWheelNumbers(numbers);
-    }, []); // Only run once
+    }, []); // Only run once on mount
 
     return wheelNumbers;
 };
 
-export default WheelNumbers;
+export default useWheelNumbers;

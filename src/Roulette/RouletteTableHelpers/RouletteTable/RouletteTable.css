@@ -17,6 +17,12 @@
     line-height: 1.14;
 }
 
+.roulette-table-container.disabled,
+.roulette-table-container.disabled * {
+    pointer-events: none; /* Disable click events */
+    opacity: 0.5; /* Optional: Make it look visually disabled */
+}
+
 .roulette-table-container-first {
     position: relative;
     display: flex;
