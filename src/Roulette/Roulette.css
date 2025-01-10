@@ -81,6 +81,29 @@ body.bg-0 .roulette-wrapper {
     background-color: #000000 !important;
 }
 
+.modalButton {
+    box-shadow:inset 0px 1px 0px 0px #ba5252;
+    background: #3d4852 linear-gradient(to bottom, #3d4852 5%, #e33939 100%);
+    border-radius:6px;
+    border:1px solid #000000;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family: Arial, serif;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #a994ff;
+}
+.modalButton:hover {
+    background: #e33939 linear-gradient(to bottom, #e33939 5%, #3d4852 100%);
+}
+.modalButton:active {
+    position:relative;
+    top:1px;
+}
+
 @media (max-width: 800px) {
     .roulette-wrapper {
         width: 100%;

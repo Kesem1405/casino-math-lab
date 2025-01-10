@@ -259,8 +259,8 @@ const Roulette = () => {
         <div className="body">
             <h1 className="heading">React Casino Roulette</h1>
             <div className="balance">Balance: ${balance}</div>
-            <button onClick={() => setShowGameInfoModal(true)}>Game Info</button>
-            <button onClick={() => setShowTotalWinningProbabilityModal(true)}>
+            <button className="modalButton" onClick={() => setShowGameInfoModal(true)}>Game Info</button>
+            <button  className="modalButton" onClick={() => setShowTotalWinningProbabilityModal(true)}>
                 Total probability : {(totalProbability * 100).toFixed(2)}%
             </button>
             <RouletteGameInfoModal
