@@ -18,6 +18,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    opacity: 0.60;
 }
 
 .chip.center {
@@ -84,8 +85,8 @@
 /* sm */
 @media (max-width: 640px) {
     .chip {
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
     }
 
     .chip.right-top {

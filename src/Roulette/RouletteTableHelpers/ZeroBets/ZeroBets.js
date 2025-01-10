@@ -11,7 +11,7 @@ export const ZeroBets: FC = () => {
 
     return (
         <>
-            {['0'].map((number) => (
+            {['0','00'].map((number) => (
                 <div
                     key={`zero-item-${number}`}
                     className="zero-item"
@@ -26,13 +26,13 @@ export const ZeroBets: FC = () => {
                                 onMouseEnter={onBetCatcherHover}
                                 onMouseLeave={onBetCatcherHover}
                                 data-action={ACTION_TYPES.STREET}
-                                data-highlight="0-1-2"
+                                data-highlight="0-00-2"
                                 style={{ zIndex: 12 }}
                             />
-                            {shouldRenderChip("0-1-2", bets) && (
+                            {shouldRenderChip("0-00-2", bets) && (
                                 <Chip
                                     position="left-top"
-                                    icon={findChipIcon("0-1-2", bets)}
+                                    icon={findChipIcon("0-00-2", bets)}
                                 />
                             )}
                         </>
@@ -62,10 +62,10 @@ export const ZeroBets: FC = () => {
                                 onMouseEnter={onBetCatcherHover}
                                 onMouseLeave={onBetCatcherHover}
                                 data-action={ACTION_TYPES.ROW}
-                                data-highlight="0"
+                                data-highlight="0-00"
                             />
-                            {shouldRenderChip('0', bets) && (
-                                <Chip position="center-top" icon={findChipIcon('0', bets)} />
+                            {shouldRenderChip('0-00', bets) && (
+                                <Chip position="center-top" icon={findChipIcon('0-00', bets)} />
                             )}
                         </>
                     )}
@@ -110,7 +110,7 @@ export const ZeroBets: FC = () => {
                         onMouseEnter={onBetCatcherHover}
                         onMouseLeave={onBetCatcherHover}
                         data-action={ACTION_TYPES.BASKET_US}
-                        data-highlight={`${number === '0' ? '0' : '0'}-1-2-3`}
+                        data-highlight={`${number === '0' ? '0-00' : '00-0'}-1-2-3`}
                         style={{ left: -3 }}
                     />
                     {/* End Basket Catcher */}

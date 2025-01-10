@@ -14,6 +14,17 @@ body {
     font-family: 'Dancing Script', cursive;
 }
 
+.balance{
+    border-top: 5px outset #FFD700;
+    border-right: 5px inset #d1b200;
+    border-bottom: 3px outset #FFD700;
+    border-left: 5px inset #FFD700;
+    background-color: #cacaca;
+    top: 10%;
+    width: 10.5%;
+    height: 35px;
+    margin-left: 90%;
+}
 body.bg-0 {
     background-color: #075600;
     background-repeat: repeat;
@@ -37,13 +48,37 @@ body.bg-0 .roulette-wrapper {
 }
 
 .roulette-wrapper {
-    width: 800px;
+    transform: translate(-0px, -100px);
+    width: 600px;
     backdrop-filter: blur(5px);
     margin: auto;
     padding: 0 30px;
     border-radius: 30px;
     border: 1px solid #fff;
+}
 
+.spinButton {
+    background-image: url("../Roulette/images/RouletteWheel.png"); /* Path to your image */
+    background-size: cover;
+    background-position: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: none;
+    background-color: #d1d1d1 !important;
+    position: absolute !important;
+    transform: translate(-300%, -410%); /* Initial position */
+    left: 75% !important;
+    top: 80% !important;
+    cursor: pointer;
+}
+
+.spinButton:hover {
+    animation: spinAnimation 1s linear infinite;
+}
+
+.spinButton:disabled {
+    background-color: #000000 !important;
 }
 
 @media (max-width: 800px) {
@@ -135,4 +170,14 @@ body.bg-0 .roulette-wrapper {
     text-align: center;
     font-weight: 300;
     font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+}
+
+
+@keyframes spinAnimation {
+    0% {
+        transform: translate(-300%, -410%) rotate(0deg); /* Maintain initial position */
+    }
+    100% {
+        transform: translate(-300%, -410%) rotate(360deg); /* Maintain position while rotating */
+    }
 }

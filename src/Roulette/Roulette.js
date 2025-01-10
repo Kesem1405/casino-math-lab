@@ -1,12 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { RouletteTable, RouletteWheel } from 'react-casino-roulette';
-import 'react-casino-roulette/dist/index.css';
+import './RouletteTableHelpers/RouletteTable/RouletteTable.css'
+import './RouletteTableHelpers/RouletteWheel/RouletteWheel.css'
 import { getRandomRouletteWinBet } from './Helpers/getRandomRouletteWinBet';
 import whiteChip from './images/white-chip.png';
 import blueChip from './images/blue-chip.png';
 import blackChip from './images/black-chip.png';
 import cyanChip from './images/cyan-chip.png';
-import {WinningModal} from "./WinningModal/WinningModal";
+import {WinningModal} from "./Modals/WinningModal/WinningModal"
+import Modal from "react-modal";
+import {RouletteGameInfoModal} from "./Modals/InfoModal/RouletteGameInfoModal";
+import {WinningProbabilityModal} from "./Modals/ProbabilityModal/WinningProbabilityModal";
+import './RouletteTableHelpers/Chip/Chip.css'
 import './Roulette.css';
 import {
     calculateBetProbability,
@@ -15,6 +20,9 @@ import {
     getBetType
 } from './RouletteTableHelpers/Logic/calculateWinnings';
 import WheelSpinSound from '../Roulette/Sounds/WheelSpinSound.mp3'
+import { LastWinsTable } from './RouletteTableHelpers/LastWinsTable/LastWinsTable';
+
+Modal.setAppElement("#root"); // Accessibility for React Modal
 
 const API = {
     getRandomBet: async () => {
@@ -54,14 +62,18 @@ const Roulette = () => {
     const [betHistory, setBetHistory] = useState([]);
     const [balance, setBalance] = useState(10000);
     const [currentRoundBet, setCurrentRoundBet] = useState(0);
+    const [winningNumber, setWinningNumber] = useState(null);
     const [roundWinnings, setRoundWinnings] = useState(null);
     const [showWinningModal, setShowWinningModal] = useState(false);
+    const [showWheelModal, setShowWheelModal] = useState(false);
     const [winningAmount, setWinningAmount] = useState(0);
-
+    const [lastWins, setLastWins] = useState([]);
     const [isRouletteWheelSpinning, setIsRouletteWheelSpinning] = useState(false);
     const [rouletteWheelStart, setRouletteWheelStart] = useState(false);
     const [rouletteWheelBet, setRouletteWheelBet] = useState('-1');
     const wheelSpinSound = useRef(new Audio(WheelSpinSound));
+    const [showTotalWinningProbabilityModal, setShowTotalWinningProbabilityModal] = useState(false);
+    const [showGameInfoModal, setShowGameInfoModal] = useState(false);
 
 
 
@@ -91,6 +103,7 @@ const Roulette = () => {
     }, [isRouletteWheelSpinning]);
 
     const handleDoSpin = () => {
+        setShowWheelModal(true);
         setIsRouletteWheelSpinning(false);
         setRouletteWheelStart(false);
         wheelSpinSound.current.pause();
@@ -155,6 +168,7 @@ const Roulette = () => {
         let winningsDetails = [];
 
         const winningBet = parseInt(rouletteWheelBet);
+        setWinningNumber(winningBet);
 
         Object.entries(bets).forEach(([betId, { number }]) => {
             const betType = getBetType(betId);
@@ -174,14 +188,25 @@ const Roulette = () => {
             setShowWinningModal(true);
         }
 
+        setTimeout(() => {
+            setShowWheelModal(false);
+        }, 5000);
         setBalance((prev) => prev + totalWinnings);
         setRoundWinnings({ total: totalWinnings, details: winningsDetails });
         setCurrentRoundBet(0);
         setBets({});
+
+        setLastWins((prev) => {
+            const updatedWins = [...prev];
+            if (updatedWins[updatedWins.length - 1] !== winningBet) {
+                updatedWins.push(winningBet);
+            }
+            if (updatedWins.length > 10) {
+                updatedWins.shift();
+            }
+            return updatedWins;
+        });
     };
-
-
-
 
 
     const addBet = (id) => {
@@ -234,64 +259,84 @@ const Roulette = () => {
         <div className="body">
             <h1 className="heading">React Casino Roulette</h1>
             <div className="balance">Balance: ${balance}</div>
-            <p>Total Winning Probability: {(totalProbability * 100).toFixed(2)}%</p>
-            <div className="current-bet">Current Round Bet: ${currentRoundBet}</div>
+            <button onClick={() => setShowGameInfoModal(true)}>Game Info</button>
+            <button onClick={() => setShowTotalWinningProbabilityModal(true)}>
+                Total probability : {(totalProbability * 100).toFixed(2)}%
+            </button>
+            <RouletteGameInfoModal
+                isOpen={showGameInfoModal}
+                onRequestClose={() => setShowGameInfoModal(false)}
+            />
+            <WinningProbabilityModal
+                isOpen={showTotalWinningProbabilityModal}
+                onRequestClose={() => setShowTotalWinningProbabilityModal(false)}
+            />
             {roundWinnings && (
                 <div className="round-winnings">
                     <p>Winnings This Round: ${roundWinnings.total}</p>
                     <ul>
-                        {roundWinnings.details.map(({ betId, winnings }) => (
+                        {roundWinnings.details.map(({betId, winnings}) => (
                             <li key={betId}>Bet on {betId}: Won ${winnings}</li>
                         ))}
                     </ul>
                 </div>
             )}
+            <LastWinsTable lastWins={lastWins}/>
             <div className="roulette-wheel-wrapper">
-                <RouletteWheel
-                    start={rouletteWheelStart}
-                    winningBet={rouletteWheelBet}
-                    onSpinningEnd={handleEndSpin}
-                    withAnimation={true}
-                />
+                <Modal
+                    isOpen={showWheelModal}
+                    onRequestClose={() => {
+                        if (!isRouletteWheelSpinning) {
+                            setShowWheelModal(false);
+                        }
+                    }}
+                    className="wheel-modal"
+                    overlayClassName="wheel-modal-overlay"
+                    shouldCloseOnOverlayClick={!isRouletteWheelSpinning} // Disable overlay click during spinning
+                >
+                    <RouletteWheel
+                        start={rouletteWheelStart}
+                        winningBet={rouletteWheelBet}
+                        onSpinningEnd={handleEndSpin}
+                        withAnimation={true}
+                        addRest={true}
+                        winningNumber={winningNumber}  // Pass the winning number
+                    />
+                </Modal>
                 <div className="buttons">
                     <button
                         type="button"
+                        className="spinButton"
                         disabled={isRouletteWheelSpinning}
                         onClick={handleDoSpin}
                     >
-                        Let&apos;s go
+                        SPIN
                     </button>
                 </div>
             </div>
-            {showWinningModal && <WinningModal amount={winningAmount}  onClose={handleCloseModal} />}
+            {showWinningModal && <WinningModal amount={winningAmount} onClose={handleCloseModal}/>}
             <div className="roulette-wrapper">
                 <RouletteTable
-                    onBet={({ id }) => addBet(id)}
+                    onBet={({id}) => addBet(id)}
                     bets={bets}
                     isDebug={isDebug}
                     isRouletteWheelSpinning={isRouletteWheelSpinning}
                 />
-                {Object.entries(bets).map(([betId, { number }]) => (
-                    <div key={betId}>
-                        <p>{betId}: {number} chips</p>
-                    </div>
-                ))}
-
                 <div className="menu">
                     <ul className="chips">
-                        {Object.entries(chipsMap).map(([name, { icon }]) => (
+                        {Object.entries(chipsMap).map(([name, {icon}]) => (
                             <li
                                 key={name}
                                 data-name={name}
                                 className={activeChip === name ? 'active' : ''}
                                 onClick={handleChipChange}
                             >
-                                <img width={64} height={64} src={icon} alt="chip" />
+                                <img width={64} height={64} src={icon} alt="chip"/>
                             </li>
                         ))}
                     </ul>
                     <div className="score">
-                        <p>Total bet: {calcTotalBet(bets)}</p>
+                        <p>Total bet: {calcTotalBet(bets)}$</p>
                     </div>
                     <div className="buttons">
                         <button type="button" onClick={handleUndo}>Undo</button>
@@ -303,7 +348,7 @@ const Roulette = () => {
                         <p className="data">{JSON.stringify(bets, null, 2)}</p>
                     )}
                 </div>
-                <div style={{ height: 50 }} />
+                <div style={{height: 50}}/>
             </div>
         </div>
     );

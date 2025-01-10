@@ -4,12 +4,15 @@ import { classNames } from '../../Helpers/ClassNames';
 
 import './RouletteWheel.css';
 
+
+
 const RouletteWheel = ({
                            start,
                            winningBet,
                            onSpinningEnd = () => undefined,
                            withAnimation = true,
                            addRest = true,
+                           winningNumber,
                        }) => {
     const [wheelNumbers, setWheelNumbers] = useState([]);
     const innerRef = useRef(null);
@@ -35,23 +38,22 @@ const RouletteWheel = ({
 
         const betIndex = wheelNumbers.indexOf(winningBet);
 
-        setIsSpinning(true); // Mark the wheel as spinning
+        setIsSpinning(true);
 
         setTimeout(() => {
             currentInnerRef.setAttribute('data-spintoindex', `${betIndex}`);
-            setBallSpinPosition(betIndex); // Set the ball's final position
+            setBallSpinPosition(betIndex);
 
             setTimeout(() => {
                 if (addRest) {
                     currentInnerRef.classList.add('rest');
                 }
 
-                setIsSpinning(false); // Mark the wheel as not spinning
-                onSpinningEnd(); // Notify that the spin ended
-            }, 9000); // Simulate the time it takes for the wheel to spin
+                setIsSpinning(false);
+                onSpinningEnd();
+            }, 9000);
         }, 100);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [winningBet, start, isSpinning]);
 
     return (
@@ -61,6 +63,7 @@ const RouletteWheel = ({
                     'with-animation': withAnimation && isSpinning,
                 })}
             >
+
                 <ul className="roulette-wheel-inner" ref={innerRef}>
                     {wheelNumbers.map((number, index) => (
                         <li
@@ -68,7 +71,7 @@ const RouletteWheel = ({
                             data-bet={number}
                             className={`roulette-wheel-bet-number ${
                                 ballSpinPosition === index ? 'ball-position' : ''
-                            }`}
+                            } ${number === winningNumber ? 'blinking' : ''}`}
                         >
                             <label htmlFor={`wheel-pit-${number}`}>
                                 <input

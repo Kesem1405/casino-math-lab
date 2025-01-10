@@ -1,0 +1,63 @@
+/* Modal Button Styles */
+.probability-button, .info-button {
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+/* Modal Content Wrapper */
+.modal-content {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Close Button */
+.close-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 16px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Modal Styling */
+.roulette-info-modal, .winning-probability-modal {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Modal Table Styling */
+.winning-probability-modal table, .roulette-info-modal table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.winning-probability-modal th, .roulette-info-modal th,
+.winning-probability-modal td, .roulette-info-modal td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Overlay Styling */
+.roulette-info-modal-overlay, .winning-probability-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}

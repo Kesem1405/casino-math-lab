@@ -8,16 +8,41 @@
     --spinningAnimationSpeed: 30s;
     --spinningSpeed: 9s;
     width: 374px;
-    margin: 0;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    margin: 0; /* Remove auto-centering */
     user-select: none;
     font-size: 18px;
     font-weight: 400;
     font-family: Helvetica, sans-serif;
     line-height: 1.15;
+    position: absolute;
+    left: 35%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.wheel-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+    outline: none;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.wheel-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -133,7 +158,19 @@
     transform: rotateZ(350.52631578947deg);
 }
 
+/* Formula: (SEEMS LIKE THIS NEEDS TO BE REVISED)
+const $SLICES_NUMBER = 38  // roulette-wheel-bet-number of slices (36 + 0 + 00)
+const $SPINS = 8 // the roulette-wheel-bet-number of laps the ball spins before resting
+const $PITWIDTH = 32 // the width of each pit
+const $RIMZISE = 6 // size of the bevelled rim edge
+const $SINGLE_SPIN = 9 // Math.floor(360 / 38)
 
+const $INDEX = 0 // (this means the element position in DOM, 0 bet is not the index 0)
+
+const $STEP_1 = -(360 * $SPINS - ($PITWIDTH * 2 + $RIMZISE) + $SINGLE_SPIN)
+const $STEP_2 =  $STEP_1 + $INDEX * $SINGLE_SPIN
+console.log($STEP_2)
+*/
 .roulette-wheel-inner[data-spinToIndex]::before{
     transition: transform 9s ease-out;
     content: '\2022';
@@ -248,7 +285,7 @@
     transform: rotateZ(-2485deg);
 }
 .roulette-wheel-inner[data-spintoindex='36']::before {
-    transform: rotateZ(-2477deg);
+    transform: rotateZ(-2477deg); /* chngd */
 }
 .roulette-wheel-inner[data-spintoindex='37']::before {
     transform: rotateZ(-2468deg);
@@ -265,9 +302,6 @@
 
 .roulette-wheel-plate.with-animation {
     animation: rotate var(--spinningAnimationSpeed) infinite linear;
-}
-.roulette-wheel {
-    animation: spin-animation 3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
 .roulette-wheel-plate::after,
@@ -316,6 +350,8 @@
 .roulette-wheel-bet-number:nth-child(19), .roulette-wheel-bet-number:nth-child(38) {
     border-top-color: #008000;
 }
+
+
 .roulette-wheel-pit {
     color: #fff;
     padding-top: 12px;
@@ -364,7 +400,16 @@
     font-size: 60px;
     z-index: 5;
     border-radius: 0;
-    display: flex;
+    display: flex; /* 🚨🚨🚨 IMPORTANT 🚨🚨🚨 DO NOT REMOVE THIS 🚨🚨🚨 */
+    /* The problem is that by some reasons the wheel ball worked fine while
+    I was developing it. But when I tried to upload this to Codesandbox
+    the roulette wheel ball turned out to be not "centered" (https://i.imgur.com/GBExbD2.png).
+
+    Idk why I decided to to try to set `display: flex` but this worked.
+
+    First I thought the problem might be due to different line-height
+    but after playing with this property I understand it's not due to it.
+    */
 }
 
 .roulette-wheel-inner.rest::before {
@@ -375,11 +420,31 @@
     left: 25%;
 }
 
+.roulette-wheel-bet-number.blinking {
+    animation: blinking 1s ease-in-out infinite;  /* Apply animation to the number */
+    border: 2px solid #78ff00;  /* Set the border color to green */
+}
+
 @keyframes rotate {
-    from {
-        transform: rotate(0deg);
+    0% {
+        transform: rotateZ(0deg);
     }
-    to {
-        transform: rotate(360deg);
+    100% {
+        transform: rotateZ(360deg);
     }
+}
+
+@keyframes blinking {
+    0%, 100% {
+        opacity: 1;
+        border-color: #78ff00;  /* Set the border color to green */
+    }
+    50% {
+        opacity: 0;
+        border-color: transparent;  /* Make border disappear in the middle */
+    }
+}
+
+.blinking {
+    animation: blinking 0.5s step-start infinite;
 }

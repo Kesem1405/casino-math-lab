@@ -1,0 +1,32 @@
+.last-wins-table {
+    background-color: #474340;
+    border-top: 10px groove #7d7d7d;
+    border-right: 10px double #2e2e2e;
+    border-bottom: 10px groove #7d7d7d;
+    border-left: 10px double #2e2e2e;
+    width: 100%;
+    overflow-y: auto;
+    margin-top: 10px;
+    max-width: 300px;
+    margin-left: 81%;
+    max-height: 200px; /* Adjust based on your design */
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.last-wins-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.last-wins-table th,
+.last-wins-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.last-wins-table tbody tr td {
+    color: white;
+    font-weight: bold;
+}
