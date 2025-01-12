@@ -13,18 +13,20 @@ const getNumberColor = (number) => {
     return 'default';
 };
 
-export const LastWinsTable = ({ lastWins }) => {
-    const limitedWins = lastWins.slice(0, 10).reverse(); // Reverse the order of the wins after limiting to 10
+export const LastWinsTable = ({ lastWins, language }) => {
+    const limitedWins = lastWins.slice(0, 10).reverse();
+    const lastWinsText = language === 'en' ? 'Last Wins' : 'הזכיות האחרונות';
 
     return (
-        <div className="last-wins-table">
+        <p className="last-wins-table">
             <ul>
+                {lastWinsText}
                 {limitedWins.map((win, index) => {
-                    // Show the latest win first
                     if (index === 0) {
                         return (
                             <li key={index}>
-                                <strong>Latest Win:</strong> <p style={{ backgroundColor: getNumberColor(win), color: "white" }}> {win}</p>
+                                <strong></strong> <p style={{ backgroundColor: getNumberColor(win), color: "white" }}> {win}</p>
+                                __
                             </li>
                         );
                     } else {
@@ -39,6 +41,6 @@ export const LastWinsTable = ({ lastWins }) => {
                     }
                 })}
             </ul>
-        </div>
+        </p>
     );
 };

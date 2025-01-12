@@ -22,7 +22,7 @@ import {
 import WheelSpinSound from '../Roulette/Sounds/WheelSpinSound.mp3'
 import { LastWinsTable } from './RouletteTableHelpers/LastWinsTable/LastWinsTable';
 
-Modal.setAppElement("#root"); // Accessibility for React Modal
+Modal.setAppElement("#root");
 
 const API = {
     getRandomBet: async () => {
@@ -54,7 +54,7 @@ const calcTotalBet = (bets) => {
     return Object.entries(bets).reduce((acc, [, value]) => acc + value.number, 0);
 };
 
-const Roulette = () => {
+const Roulette = ({language}) => {
     const [bets, setBets] = useState({});
     const [isDebug] = useState(false);
     const [activeChip, setActiveChip] = useState(Object.keys(chipsMap)[0]);
@@ -76,7 +76,13 @@ const Roulette = () => {
     const [showGameInfoModal, setShowGameInfoModal] = useState(false);
 
 
+    const spinButtonText = language === 'en' ? 'SPIN' : 'סובב';
+    const undoButtonText = language === 'en' ? 'Undo' : 'בטל';
+    const cleanButtonText = language === 'en' ? 'Clean' : 'נקה';
+    const gameInfoButtonText = language === 'en' ? 'Game Info' : 'מידע על המשחק';
+    const totalProbabilityButtonText = language === 'en' ? 'Total probability' : 'הסתברות כוללת';
 
+    const roundWinningsText = language === 'en' ? 'Winnings This Round' : 'זכיות בסיבוב זה';
 
     useEffect(() => {
         if (rouletteWheelBet === '-1' || rouletteWheelStart === true) {
@@ -117,7 +123,7 @@ const Roulette = () => {
 
     const handleUndo = () => {
         if (betHistory.length === 0) {
-            alert("No bets to undo!");
+            alert(language === 'en' ? 'No bets to undo!' : 'אין הימורים לביטול!');
             return;
         }
         const lastBet = betHistory[betHistory.length - 1];
@@ -213,7 +219,7 @@ const Roulette = () => {
         const { icon, value } = chipsMap[activeChip];
 
         if (balance < value) {
-            alert("Insufficient balance to place this bet.");
+            alert(language === 'en' ? 'Insufficient balance to place this bet.' : 'לא מספיק יתרה להנחת הימור');
             return;
         }
 
@@ -257,31 +263,34 @@ const Roulette = () => {
 
     return (
         <div className="body">
-            <h1 className="heading">React Casino Roulette</h1>
-            <div className="balance">Balance: ${balance}</div>
-            <button className="modalButton" onClick={() => setShowGameInfoModal(true)}>Game Info</button>
-            <button  className="modalButton" onClick={() => setShowTotalWinningProbabilityModal(true)}>
-                Total probability : {(totalProbability * 100).toFixed(2)}%
+            <h1 className="heading">{language === 'en' ? ' Roulette game' : 'משחק הרולטה'}</h1>
+            <div className="balance">{language === 'en' ? `Balance: $${balance}` : `יתרה: ₪${balance}`}</div>
+            <button className="modalButton" onClick={() => setShowGameInfoModal(true)}>{gameInfoButtonText}</button>
+            <button className="modalButton" onClick={() => setShowTotalWinningProbabilityModal(true)}>
+                {totalProbabilityButtonText}: {(totalProbability * 100).toFixed(2)}%
             </button>
             <RouletteGameInfoModal
                 isOpen={showGameInfoModal}
                 onRequestClose={() => setShowGameInfoModal(false)}
+                language={language}
             />
             <WinningProbabilityModal
                 isOpen={showTotalWinningProbabilityModal}
                 onRequestClose={() => setShowTotalWinningProbabilityModal(false)}
+                language={language}
             />
             {roundWinnings && (
                 <div className="round-winnings">
-                    <p>Winnings This Round: ${roundWinnings.total}</p>
+                    <p>{roundWinningsText}: ${roundWinnings.total}</p>
                     <ul>
-                        {roundWinnings.details.map(({betId, winnings}) => (
-                            <li key={betId}>Bet on {betId}: Won ${winnings}</li>
-                        ))}
+                    {roundWinnings.details.map(({betId, winnings}) => (
+                            <li key={betId}>
+                                {language === 'en' ? `Bet on ${betId}: Won $${winnings}` : `הימור על ${betId}: זכית ב-${winnings}`}
+                            </li>))}
                     </ul>
                 </div>
             )}
-            <LastWinsTable lastWins={lastWins}/>
+            <LastWinsTable lastWins={lastWins} language={language} />
             <div className="roulette-wheel-wrapper">
                 <Modal
                     isOpen={showWheelModal}
@@ -300,21 +309,21 @@ const Roulette = () => {
                         onSpinningEnd={handleEndSpin}
                         withAnimation={true}
                         addRest={true}
-                        winningNumber={winningNumber}  // Pass the winning number
+                        winningNumber={winningNumber}
                     />
                 </Modal>
-                <div className="buttons">
+                    <div className="spinButton-wrapper">
                     <button
                         type="button"
                         className="spinButton"
                         disabled={isRouletteWheelSpinning}
                         onClick={handleDoSpin}
                     >
-                        SPIN
+                        {spinButtonText}
                     </button>
                 </div>
             </div>
-            {showWinningModal && <WinningModal amount={winningAmount} onClose={handleCloseModal}/>}
+            {showWinningModal && <WinningModal amount={winningAmount} onClose={handleCloseModal} language={language} winningNumber={winningNumber} />}
             <div className="roulette-wrapper">
                 <RouletteTable
                     onBet={({id}) => addBet(id)}
@@ -339,8 +348,8 @@ const Roulette = () => {
                         <p>Total bet: {calcTotalBet(bets)}$</p>
                     </div>
                     <div className="buttons">
-                        <button type="button" onClick={handleUndo}>Undo</button>
-                        <button type="button" onClick={handleClean}>Clean</button>
+                        <button type="button" onClick={handleUndo}>{undoButtonText}</button>
+                        <button type="button" onClick={handleClean}>{cleanButtonText}</button>
                     </div>
                 </div>
                 <div>

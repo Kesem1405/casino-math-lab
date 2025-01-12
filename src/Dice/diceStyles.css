@@ -1,0 +1,193 @@
+/* General Dice Game Styles */
+.dice-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 800px; /* Increased max width for wider screens */
+    margin: 20px auto;
+    box-sizing: border-box;
+}
+
+/* Show Dice Button Section */
+.show-dice {
+    margin: 50px 0;
+    text-align: center;
+}
+
+.show-dice button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.show-dice button:hover {
+    background-color: #43a047;
+    transform: translateY(-3px);
+}
+
+/* Headings */
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #2d2d2d;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Timer */
+.timer {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #555;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Dice Container */
+.dice-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Dynamic layout */
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Dice Styles */
+.dice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1; /* Ensures dice are square */
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+.dice.win {
+    background-color: #a8e6a3; /* Green for winning dice */
+    border-color: #4caf50;
+    color: #2d2d2d;
+    box-shadow: 0 4px 15px rgba(72, 187, 120, 0.5);
+}
+
+.dice:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+}
+
+/* Bet and Number Text */
+.bet {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #777;
+}
+
+.number {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Winning Message */
+.winning-message {
+    font-size: 20px;
+    margin-top: 15px;
+    text-align: center;
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* Responsive Media Queries */
+
+/* Large Screens (Desktops and Laptops) */
+@media (max-width: 1200px) {
+    .dice-game {
+        padding: 25px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .show-dice button {
+        padding: 10px 18px;
+        font-size: 15px;
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    .dice-game {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .dice-container {
+        gap: 12px;
+    }
+
+    .dice {
+        width: 60px;
+        height: 60px;
+    }
+
+    .timer {
+        font-size: 16px;
+    }
+
+    .show-dice button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+    .dice-game {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .dice-container {
+        grid-template-columns: repeat(3, 1fr); /* Smaller dice layout */
+        gap: 10px;
+    }
+
+    .dice {
+        width: 50px;
+        height: 50px;
+    }
+
+    .timer {
+        font-size: 14px;
+    }
+
+    .show-dice button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}

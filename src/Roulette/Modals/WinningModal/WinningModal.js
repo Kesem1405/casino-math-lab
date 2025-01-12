@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import './WinningModalStyles.css';
 
-export const WinningModal = ({ amount, onClose }) => {
+export const WinningModal = ({ amount, onClose, language, winningNumber }) => {
     const [showConfetti, setShowConfetti] = useState(true);
     const [displayedAmount, setDisplayedAmount] = useState(0);
     const [countUpFinished, setCountUpFinished] = useState(false);
@@ -39,17 +39,33 @@ export const WinningModal = ({ amount, onClose }) => {
         }
     }, [countUpFinished, onClose]);
 
+    const messages = {
+        en: {
+            winningNumberText: `${winningNumber} is the winning number!`,
+            title: "🎉 Congratulations! 🎉",
+            wonText: `You won: $${Math.floor(displayedAmount)}`,
+            message: "Keep the luck rolling! 🍀"
+        },
+        he: {
+            winningNumberText: `${winningNumber} הוא המספר הזוכה!`,
+            title: "🎉 מזל טוב! 🎉",
+            wonText: `זכית: ₪${Math.floor(displayedAmount)}`,
+            message: "המשך את ההצלחה 🍀"
+        }
+    };
 
+    const { title, wonText, message, winningNumberText } = language === 'he' ? messages.he : messages.en;
 
     return (
         <div className="winning-modal">
             {showConfetti && <Confetti />}
             <div className="modal-content">
-                <h2>🎉 Congratulations! 🎉</h2>
+                <h2>{title}</h2>
                 <p>
-                    You won: <span className="amount">${Math.floor(displayedAmount)}</span>
+                    <span className="amount">{wonText}</span>
                 </p>
-                <p className="message">Keep the luck rolling! 🍀</p>
+                <p className="winning-number">{winningNumberText}</p> {/* Displaying the winning number */}
+                <p className="message">{message}</p>
             </div>
         </div>
     );

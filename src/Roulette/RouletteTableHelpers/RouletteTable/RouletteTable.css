@@ -283,3 +283,12 @@
         height: 60px;
     }
 }
+
+@media (max-width: 480px) {
+    .roulette-table-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}

@@ -12,6 +12,7 @@
     max-height: 200px; /* Adjust based on your design */
     padding: 10px;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .last-wins-table table {

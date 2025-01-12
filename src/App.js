@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Roulette from './Roulette/Roulette';
+import Dice from './Dice';
 import './App.css';
 
 const App = () => {
@@ -28,12 +29,14 @@ const App = () => {
                         <li><Link to="/">{language === 'en' ? 'Introduction' : 'הקדמה'}</Link></li>
                         <li><Link to="/roulette">{language === 'en' ? 'Roulette' : 'רולטה'}</Link></li>
                         <li><Link to="/contact">{language === 'en' ? 'Contact Us' : 'צור קשר'}</Link></li>
+                        <li><Link to="/dice">{language === 'en' ? 'Dice rolling' : 'הטלת קוביה'}</Link></li>
+
                     </ul>
                 </aside>
 
                 <main className="main-content">
                     <Routes>
-                        <Route path="/" element={
+                    <Route path="/" element={
                             <section className="intro">
                                 <header className="header">
                                     <h1>{language === 'en' ? 'Welcome to Casino Math Lab' : 'ברוכים הבאים למעבדת מתמטיקה קזינו'}</h1>
@@ -47,6 +50,7 @@ const App = () => {
                         } />
                         <Route path="/roulette" element={<Roulette language={language} />} />
                         <Route path="/contact" element={<p>{language === 'en' ? 'Contact page content' : 'תוכן דף צור קשר'}</p>} />
+                        <Route path="/dice" element={<Dice language={language} />} />
                     </Routes>
                 </main>
             </div>

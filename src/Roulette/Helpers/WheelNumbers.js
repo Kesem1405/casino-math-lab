@@ -1,4 +1,3 @@
-// helpers/WheelNumbers.js
 import { useState, useEffect } from 'react';
 import { getRandomArrayItem } from './getRandomArrayItem';
 
@@ -9,7 +8,6 @@ const useWheelNumbers = () => {
         const generateWheelNumbers = () => {
             const staticWheelNumbers = Array.from({ length: 36 }, (_, i) => `${i + 1}`);
 
-            // Step 2: Shuffle the numbers randomly
             const randomNumbers = [];
             while (randomNumbers.length < staticWheelNumbers.length) {
                 const availableNumbers = staticWheelNumbers.filter(
@@ -24,7 +22,6 @@ const useWheelNumbers = () => {
                 finalArray.push(number);
             });
             finalArray.push('0');
-
             return finalArray;
         };
 
