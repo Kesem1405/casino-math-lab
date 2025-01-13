@@ -11,7 +11,7 @@ import { hasOwn } from '../utils';
 import { classNames } from '../../Helpers/ClassNames';
 import './RouletteTable.css';
 
-export const RouletteTable = ({ onBet, bets, isDebug = false, isRouletteWheelSpinning }) => {
+export const RouletteTable = ({ onBet, bets, isDebug = false, isRouletteWheelSpinning , language}) => {
     const tableRef = useRef(null);
 
     useEffect(() => {
@@ -25,7 +25,6 @@ export const RouletteTable = ({ onBet, bets, isDebug = false, isRouletteWheelSpi
             const betData = betElement?.dataset?.bet;
 
             const action = (highlightElement ?? betElement)?.dataset?.action;
-
             if (!highlightData && !betData) {
                 console.error('No data in [data-bet] or [data-highlight]');
                 return;
@@ -108,7 +107,7 @@ export const RouletteTable = ({ onBet, bets, isDebug = false, isRouletteWheelSpi
                     <Dozens isRouletteWheelSpinning={isRouletteWheelSpinning} />
                 </section>
                 <div className="roulette-table-container-third">
-                    <BottomBets isRouletteWheelSpinning={isRouletteWheelSpinning} />
+                    <BottomBets language={language} isRouletteWheelSpinning={isRouletteWheelSpinning} />
                 </div>
             </div>
         </RouletteTableContext.Provider>

@@ -1,3 +1,4 @@
+/* Reset and box-sizing */
 * {
     margin: 0;
     padding: 0;
@@ -15,6 +16,7 @@ body {
     overflow-x: hidden;
 }
 
+/* Balance Section */
 .balance {
     border-top: 5px outset #FFD700;
     border-right: 5px inset #d1b200;
@@ -24,96 +26,75 @@ body {
     position: absolute;
     top: 10%;
     right: 5%; /* Adjusted for responsiveness */
-    width: 150px; /* Scaled for readability */
-    height: 35px;
+    padding: 8px 12px;
     text-align: center;
-    line-height: 35px;
-    font-size: 1.2rem; /* Adjusted for readability on smaller screens */
+    line-height: 1.5;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    min-width: 80px;
+    transition: all 0.3s ease; /* Smooth transition for resizing */
+    max-width: 200px; /* Prevent it from growing too large */
 }
 
-
-
-body.bg-0 .roulette-wrapper {
-    backdrop-filter: none;
-}
-
+/* Heading */
 .heading {
-    font-size: 3rem; /* Responsive font size */
+    font-size: 3rem;
     font-weight: 700;
     text-align: center;
     color: #fff;
     margin-bottom: 20px;
 }
 
+/* Roulette Wrapper */
 .roulette-wrapper {
     transform: translate(0, 0);
     max-width: 600px;
     width: 90%;
     backdrop-filter: blur(5px);
-    margin: auto;
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 15px;
     border-radius: 30px;
     border: 1px solid #fff;
 }
 
-.roulette-wheel-wrapper {
-    margin: 0 auto 30px auto;
-    overflow: hidden;
-}
-
+/* Spin Button */
 .spinButton-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 150px; /* Matches button size */
-    height: 150px; /* Matches button size */
-    margin: 0 auto; /* Centers the wrapper */
-    position: absolute; /* Allows precise placement */
-    top: 25%; /* Adjust to raise the button higher */
-    left: 55%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Perfect centering */
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 20%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 30px;
 }
 
 .spinButton {
-    background-image: url("../Roulette/images/RouletteWheel.png"); /* Your image */
-    background-size: cover; /* Image covers the button */
+    background-image: url("../Roulette/images/RouletteWheel.png");
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    width: 150px; /* Matches wrapper size */
-    height: 150px; /* Matches wrapper size */
-    border-radius: 50%; /* Makes it circular */
-    border: 5px solid #d1d1d1; /* Grey circular border */
-    background-color: #d1d1d1; /* Fallback grey background */
-    cursor: pointer; /* Adds pointer cursor */
-    transition: transform 0.3s ease; /* Smooth hover effect */
-    will-change: transform; /* Optimizes animation */
-    outline: none; /* Removes focus outline */
-}
-
-/* Hover effect: Only visual transform */
-.spinButton:hover {
-    animation: spinAnimation 1s linear infinite; /* Spin animation */
-}
-
-/* Disabled state */
-.spinButton:disabled {
-    background-color: #d1d1d1; /* Grey background for disabled */
-    cursor: not-allowed;
-}
-
-
-/* Adjust grey circular background */
-.spinButton-wrapper::before {
-    content: "";
-    position: absolute;
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: #d1d1d1; /* Grey background */
-    z-index: -1;
-
+    border: 5px solid #d1d1d1;
+    background-color: #d1d1d1;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
+.spinButton:hover {
+    animation: spinAnimation 1s linear infinite;
+}
+
+.spinButton:disabled {
+    background-color: #d1d1d1;
+    cursor: not-allowed;
+}
 
 /* Modal Button */
 .modalButton {
@@ -128,7 +109,6 @@ body.bg-0 .roulette-wrapper {
     font-weight: bold;
     padding: 6px 24px;
     text-decoration: none;
-    text-shadow: 0px 1px 0px #a994ff;
     transition: background 0.3s ease;
 }
 
@@ -136,11 +116,7 @@ body.bg-0 .roulette-wrapper {
     background: #e33939 linear-gradient(to bottom, #e33939 5%, #3d4852 100%);
 }
 
-.modalButton:active {
-    position: relative;
-    top: 1px;
-}
-
+/* Menu */
 .menu {
     display: flex;
     flex-direction: column;
@@ -148,16 +124,13 @@ body.bg-0 .roulette-wrapper {
     gap: 15px;
 }
 
-.menu .chips, .menu .buttons, .roulette-wheel-wrapper .buttons {
+.menu .chips, .menu .buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
 }
 
-.roulette-wheel-wrapper .buttons {
-    margin-top: 30px;
-}
-
+/* Buttons */
 .buttons button {
     padding: 15px 20px;
     background-color: #e74c3c;
@@ -202,6 +175,7 @@ body.bg-0 .roulette-wrapper {
     transform: scale(1.3);
 }
 
+/* Score Section */
 .score {
     text-align: center;
     color: #fff;
@@ -221,24 +195,24 @@ body.bg-0 .roulette-wrapper {
 
 @keyframes spinAnimation {
     0% {
-        transform: rotate(0deg); /* No rotation at start */
+        transform: rotate(0deg);
     }
     100% {
-        transform: rotate(360deg); /* Full rotation */
+        transform: rotate(360deg);
     }
 }
 
 /* Media Queries for Responsiveness */
 
-/* Tablets */
-@media (max-width: 768px) {
+/* Small Devices */
+@media (max-width: 1024px) {
     .heading {
         font-size: 2.5rem;
     }
 
     .roulette-wrapper {
-        width: 100%;
-        padding: 10px;
+        width: 80%;
+        padding: 15px;
     }
 
     .spinButton {
@@ -247,8 +221,9 @@ body.bg-0 .roulette-wrapper {
     }
 
     .balance {
-        width: 100px;
         font-size: 1rem;
+        width: auto;
+        padding: 6px 10px;
     }
 
     .buttons button {
@@ -257,14 +232,42 @@ body.bg-0 .roulette-wrapper {
     }
 }
 
-/* Phones */
+/* Tablets and Smaller Laptops */
+@media (max-width: 768px) {
+    .heading {
+        font-size: 2.2rem;
+    }
+
+    .roulette-wrapper {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .spinButton {
+        width: 110px;
+        height: 110px;
+    }
+
+    .balance {
+        font-size: 1rem;
+        padding: 8px 10px;
+    }
+
+    .buttons button {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Phones and Portrait Tablets */
 @media (max-width: 480px) {
     .heading {
         font-size: 2rem;
     }
 
     .roulette-wrapper {
-        width: 90%;
+        width: 100%;
+        padding: 8px;
     }
 
     .spinButton {
@@ -273,7 +276,8 @@ body.bg-0 .roulette-wrapper {
     }
 
     .balance {
-        width: 100px;
+        font-size: 0.9rem;
+        width: auto;
         height: 30px;
     }
 
@@ -281,12 +285,35 @@ body.bg-0 .roulette-wrapper {
         gap: 10px;
     }
 
-    .chips li {
-        transform: scale(1);
+    .buttons button {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Small Phones */
+@media (max-width: 320px) {
+    .heading {
+        font-size: 1.8rem;
+    }
+
+    .roulette-wrapper {
+        width: 90%;
+        padding: 5px;
+    }
+
+    .spinButton {
+        width: 90px;
+        height: 90px;
+    }
+
+    .balance {
+        font-size: 0.8rem;
+        padding: 6px 8px;
     }
 
     .buttons button {
-        padding: 10px 12px;
-        font-size: 0.8rem;
+        padding: 6px 8px;
+        font-size: 0.7rem;
     }
 }

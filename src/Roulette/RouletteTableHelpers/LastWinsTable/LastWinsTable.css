@@ -6,13 +6,14 @@
     border-left: 10px double #2e2e2e;
     width: 100%;
     overflow-y: auto;
-    margin-top: 10px;
+    margin-top: 180px;
     max-width: 135px;
-    margin-left: 81%;
-    max-height: 200px; /* Adjust based on your design */
+    margin-left: 70%;
+    max-height: 200px;
     padding: 10px;
     margin-bottom: 10px;
-    position: relative;
+    position: absolute;
+    box-sizing: border-box; /* Ensure proper box sizing */
 }
 
 .last-wins-table table {
@@ -30,4 +31,42 @@
 .last-wins-table tbody tr td {
     color: white;
     font-weight: bold;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For larger screens like PC */
+@media (min-width: 1024px) {
+    .last-wins-table {
+        max-width: 200px; /* More space for the table */
+        margin-left: 70%;
+        margin-top: 180px;
+    }
+}
+
+/* For tablets */
+@media (max-width: 768px) {
+    .last-wins-table {
+        margin-left: 15%; /* Adjusted to center on tablets */
+        max-width: 80%; /* Table can take up more space */
+        max-height: 150px; /* Adjust height for tablets */
+    }
+}
+
+/* For smaller phones */
+@media (max-width: 480px) {
+    .last-wins-table {
+        margin-left: 0; /* Full width for mobile */
+        max-width: 100%; /* Full width */
+        max-height: 120px; /* Smaller height for mobile */
+    }
+}
+
+/* For minimized PC window (about 50% of screen size) */
+@media (max-width: 768px) and (min-width: 480px) {
+    .last-wins-table {
+        margin-left: 10%;
+        max-width: 90%; /* Make it more flexible */
+        margin-top: 20px;
+    }
 }

@@ -1,33 +1,8 @@
-import { getRandomArrayItem } from '../../../Helpers/getRandomArrayItem';
-
 export const getWheelNumbers = () => {
-    // 1st step
-    const staticWheelNumbers = []; // without 0 and 00
-
-    for (let i = 1; i <= 36; i += 1) {
-        staticWheelNumbers.push(`${i}`);
-    }
-
-    // 2nd step
-    const randomNumbers = [];
-
-    for (let i = 0; i < staticWheelNumbers.length; i += 1) {
-        const availableNumbers = staticWheelNumbers.filter(
-            (number) => randomNumbers.includes(number) === false,
-        );
-        const randomNumber = getRandomArrayItem(availableNumbers);
-
-        randomNumbers.push(randomNumber);
-    }
-
-    // 3rd step
-    const finalArray = [];
-
-    randomNumbers.forEach((number, index) => {
-        finalArray.push(number);
-    });
-
-    finalArray.push('0');
-
-    return finalArray;
+    return [
+        '0', '28', '9', '26', '30', '11', '7', '20', '32', '17',
+        '5', '22', '34', '15', '3', '24', '36', '13', '1', '00',
+        '27', '10', '25', '29', '12', '8', '19', '31', '18', '6',
+        '21', '33', '16', '4', '23', '35', '14', '2'
+    ];
 };

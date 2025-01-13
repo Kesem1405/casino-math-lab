@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { RouletteTable, RouletteWheel } from 'react-casino-roulette';
+import { RouletteTable } from './RouletteTableHelpers/RouletteTable';
+import RouletteWheel from "./RouletteTableHelpers/RouletteWheel/RouletteWheel";
 import './RouletteTableHelpers/RouletteTable/RouletteTable.css'
 import './RouletteTableHelpers/RouletteWheel/RouletteWheel.css'
 import { getRandomRouletteWinBet } from './Helpers/getRandomRouletteWinBet';
@@ -309,7 +310,7 @@ const Roulette = ({language}) => {
                         onSpinningEnd={handleEndSpin}
                         withAnimation={true}
                         addRest={true}
-                        winningNumber={winningNumber}
+                        winningNumber={winningNumber}  // Pass the winning number
                     />
                 </Modal>
                     <div className="spinButton-wrapper">
@@ -330,6 +331,7 @@ const Roulette = ({language}) => {
                     bets={bets}
                     isDebug={isDebug}
                     isRouletteWheelSpinning={isRouletteWheelSpinning}
+                    language={language}
                 />
                 <div className="menu">
                     <ul className="chips">
@@ -345,7 +347,11 @@ const Roulette = ({language}) => {
                         ))}
                     </ul>
                     <div className="score">
-                        <p>Total bet: {calcTotalBet(bets)}$</p>
+                        <p>
+                            {language === 'he'
+                                ? `הימור כולל: ${calcTotalBet(bets)}$`
+                                : `Total bet: ${calcTotalBet(bets)}$`}
+                        </p>
                     </div>
                     <div className="buttons">
                         <button type="button" onClick={handleUndo}>{undoButtonText}</button>

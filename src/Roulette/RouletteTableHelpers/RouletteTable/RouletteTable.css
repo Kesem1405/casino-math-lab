@@ -5,6 +5,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
 }
 
 .roulette-table-container {
@@ -15,6 +16,7 @@
     font-weight: 400;
     font-family: Helvetica, sans-serif;
     line-height: 1.14;
+
 }
 
 .roulette-table-container.disabled,
@@ -160,6 +162,7 @@
 .zero-item {
     padding-top: 50px;
     padding-bottom: 36.8px;
+    background-color: #008f00;
 }
 
 .item-hover,
@@ -190,6 +193,7 @@
     text-align: center;
     width: 7.14%;
     color: #fff;
+
 }
 
 .column-item[data-action="1ST_COLUMN"] {
@@ -209,6 +213,7 @@
     height: 70px;
     flex-flow: row wrap;
     align-content: flex-start;
+
 }
 
 .doz-item {
@@ -230,6 +235,7 @@
     /* height: 150px; */
     flex-flow: row wrap;
     align-content: flex-start;
+
 }
 
 .outside-section {
@@ -242,6 +248,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .rhomb-red {

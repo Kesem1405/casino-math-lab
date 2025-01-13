@@ -7,14 +7,18 @@
 .roulette-wheel-container {
     --spinningAnimationSpeed: 30s;
     --spinningSpeed: 9s;
-    width: 374px;
+    width:100%;
+    max-width: 374px;
     margin: 0; /* Remove auto-centering */
     user-select: none;
     font-size: 18px;
     font-weight: 400;
     font-family: Helvetica, sans-serif;
     line-height: 1.15;
-    position: absolute;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     left: 35%;
     top: 50%;
     transform: translateY(-50%);
@@ -30,7 +34,6 @@
     outline: none;
     width: 80%;
     max-width: 600px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .wheel-modal-overlay {
@@ -316,8 +319,8 @@ console.log($STEP_2)
     right: -6px;
     bottom: -6px;
     left: -6px;
-    border: 6px solid #ffd700;
-    box-shadow: inset 0px 0px 0px 2px #b39700, 0px 0px 0px 2px #ffeb80;
+    border: 12px solid #4e1900;
+    box-shadow: inset 0px 0px 0px 2px #8e5b2d, 0px 0px 0px 6px #daa76f;
 }
 .roulette-wheel-plate::before {
     background: rgba(0, 0, 0, 0.65);
@@ -329,6 +332,7 @@ console.log($STEP_2)
     bottom: 12%;
     z-index: 1;
 }
+
 .roulette-wheel-bet-number {
     width: 32px;
     height: 175px;
@@ -341,15 +345,62 @@ console.log($STEP_2)
     background-color: transparent;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
-    border-top: 175px solid #ff0000;
+    border-top: 175px solid;
     box-sizing: border-box;
 }
-.roulette-wheel-bet-number:nth-child(odd) {
-    border-top-color: #000;
+
+/* Green numbers: 0 and 00 */
+.roulette-wheel-bet-number:nth-child(1) {
+    border-top-color: green; /* '0' */
 }
-.roulette-wheel-bet-number:nth-child(19), .roulette-wheel-bet-number:nth-child(38) {
-    border-top-color: #008000;
+.roulette-wheel-bet-number:nth-child(20) {
+    border-top-color: green; /* '00' */
 }
+
+/* Red numbers */
+.roulette-wheel-bet-number:nth-child(3),
+.roulette-wheel-bet-number:nth-child(5),
+.roulette-wheel-bet-number:nth-child(7),
+.roulette-wheel-bet-number:nth-child(9),
+.roulette-wheel-bet-number:nth-child(11),
+.roulette-wheel-bet-number:nth-child(13),
+.roulette-wheel-bet-number:nth-child(15),
+.roulette-wheel-bet-number:nth-child(17),
+.roulette-wheel-bet-number:nth-child(19),
+.roulette-wheel-bet-number:nth-child(21),
+.roulette-wheel-bet-number:nth-child(23),
+.roulette-wheel-bet-number:nth-child(25),
+.roulette-wheel-bet-number:nth-child(27),
+.roulette-wheel-bet-number:nth-child(29),
+.roulette-wheel-bet-number:nth-child(31),
+.roulette-wheel-bet-number:nth-child(33),
+.roulette-wheel-bet-number:nth-child(35),
+.roulette-wheel-bet-number:nth-child(37) {
+    border-top-color: red;
+}
+
+/* Black numbers */
+.roulette-wheel-bet-number:nth-child(2),
+.roulette-wheel-bet-number:nth-child(4),
+.roulette-wheel-bet-number:nth-child(6),
+.roulette-wheel-bet-number:nth-child(8),
+.roulette-wheel-bet-number:nth-child(10),
+.roulette-wheel-bet-number:nth-child(12),
+.roulette-wheel-bet-number:nth-child(14),
+.roulette-wheel-bet-number:nth-child(16),
+.roulette-wheel-bet-number:nth-child(18),
+.roulette-wheel-bet-number:nth-child(22),
+.roulette-wheel-bet-number:nth-child(24),
+.roulette-wheel-bet-number:nth-child(26),
+.roulette-wheel-bet-number:nth-child(28),
+.roulette-wheel-bet-number:nth-child(30),
+.roulette-wheel-bet-number:nth-child(32),
+.roulette-wheel-bet-number:nth-child(34),
+.roulette-wheel-bet-number:nth-child(36),
+.roulette-wheel-bet-number:nth-child(38){
+    border-top-color: black;
+}
+
 
 
 .roulette-wheel-pit {
@@ -419,32 +470,37 @@ console.log($STEP_2)
     bottom: 24%;
     left: 25%;
 }
-
 .roulette-wheel-bet-number.blinking {
-    animation: blinking 1s ease-in-out infinite;  /* Apply animation to the number */
-    border: 2px solid #78ff00;  /* Set the border color to green */
-}
-
-@keyframes rotate {
-    0% {
-        transform: rotateZ(0deg);
-    }
-    100% {
-        transform: rotateZ(360deg);
-    }
+    animation: blinking 1s ease-in-out infinite;
+    width: 32px;
+    height: 175px;
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: calc(50% - (32px/2));
+    transform-origin: 50% 100%;
+    background-color: transparent;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 175px solid #a5ff90;
+    box-sizing: border-box;
 }
 
 @keyframes blinking {
     0%, 100% {
         opacity: 1;
-        border-color: #78ff00;  /* Set the border color to green */
     }
     50% {
-        opacity: 0;
-        border-color: transparent;  /* Make border disappear in the middle */
+        opacity: 0.5;
     }
 }
 
-.blinking {
-    animation: blinking 0.5s step-start infinite;
-}
+@keyframes rotate {
+     0% {
+         transform: rotateZ(0deg);
+     }
+     100% {
+         transform: rotateZ(360deg);
+     }
+ }

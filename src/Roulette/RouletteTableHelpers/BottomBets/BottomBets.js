@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
-
-import  Chip  from '../Chip/Chip';
+import React, {useContext, useEffect} from 'react';
+import Chip from '../Chip/Chip';
 import { RouletteTableContext } from '../RouletteTableContext';
-
 import { shouldRenderChip, findChipIcon } from '../configs';
 import { ACTION_TYPES } from '../Constants';
 
-export const BottomBets = () => {
+export const BottomBets = ({ language }) => {
     const { onBetCatcherHover, bets } = useContext(RouletteTableContext);
+
+    useEffect(() => {
+        console.log('BottomBets rendered');
+    }, [language]);
 
     return (
         <>
@@ -35,7 +37,9 @@ export const BottomBets = () => {
                 data-bet={ACTION_TYPES.EVEN}
                 data-highlight={ACTION_TYPES.EVEN}
             >
-                <div>EVEN</div>
+                <div>
+                    {language === 'he' ? 'זוגי' : 'EVEN'}
+                </div>
                 {shouldRenderChip(ACTION_TYPES.EVEN, bets) && (
                     <Chip
                         position="center"
@@ -87,9 +91,14 @@ export const BottomBets = () => {
                 data-bet={ACTION_TYPES.ODD}
                 data-highlight={ACTION_TYPES.ODD}
             >
-                <div>ODD</div>
+                <div>
+                    {language === 'he' ? 'אי-זוגי' : 'ODD'}
+                </div>
                 {shouldRenderChip(ACTION_TYPES.ODD, bets) && (
-                    <Chip position="center" icon={findChipIcon(ACTION_TYPES.ODD, bets)} />
+                    <Chip
+                        position="center"
+                        icon={findChipIcon(ACTION_TYPES.ODD, bets)}
+                    />
                 )}
             </div>
             <div
