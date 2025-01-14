@@ -399,6 +399,7 @@ console.log($STEP_2)
 .roulette-wheel-bet-number:nth-child(36),
 .roulette-wheel-bet-number:nth-child(38){
     border-top-color: black;
+
 }
 
 
@@ -436,7 +437,7 @@ console.log($STEP_2)
     left: 24%;
     background-color: #4d4d4d;
     border: 3px solid #808080;
-    background-image: url("../../images/roulette-center.png");
+    background-image: url("../../../Media/images/roulette-center.png");
     background-position: center;
     background-size: cover;
 }
@@ -471,18 +472,7 @@ console.log($STEP_2)
     left: 25%;
 }
 .roulette-wheel-bet-number.blinking {
-    animation: blinking 1s ease-in-out infinite;
-    width: 32px;
-    height: 175px;
-    display: inline-block;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: calc(50% - (32px/2));
-    transform-origin: 50% 100%;
-    background-color: transparent;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
+    animation: blinking 2s ease-in-out infinite;
     border-top: 175px solid #a5ff90;
     box-sizing: border-box;
 }
@@ -504,3 +494,5 @@ console.log($STEP_2)
          transform: rotateZ(360deg);
      }
  }
+
+

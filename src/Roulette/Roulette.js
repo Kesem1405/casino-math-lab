@@ -4,10 +4,10 @@ import RouletteWheel from "./RouletteTableHelpers/RouletteWheel/RouletteWheel";
 import './RouletteTableHelpers/RouletteTable/RouletteTable.css'
 import './RouletteTableHelpers/RouletteWheel/RouletteWheel.css'
 import { getRandomRouletteWinBet } from './Helpers/getRandomRouletteWinBet';
-import whiteChip from './images/white-chip.png';
-import blueChip from './images/blue-chip.png';
-import blackChip from './images/black-chip.png';
-import cyanChip from './images/cyan-chip.png';
+import whiteChip from '../Media/images/white-chip.png';
+import blueChip from '../Media/images/blue-chip.png';
+import blackChip from '../Media/images/black-chip.png';
+import cyanChip from '../Media/images/cyan-chip.png';
 import {WinningModal} from "./Modals/WinningModal/WinningModal"
 import Modal from "react-modal";
 import {RouletteGameInfoModal} from "./Modals/InfoModal/RouletteGameInfoModal";
@@ -20,7 +20,7 @@ import {
     calculateWinnings,
     getBetType
 } from './RouletteTableHelpers/Logic/calculateWinnings';
-import WheelSpinSound from '../Roulette/Sounds/WheelSpinSound.mp3'
+import WheelSpinSound from '../Media/Sounds/WheelSpinSound.mp3'
 import { LastWinsTable } from './RouletteTableHelpers/LastWinsTable/LastWinsTable';
 
 Modal.setAppElement("#root");

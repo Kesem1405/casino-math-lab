@@ -1,5 +1,6 @@
 export const ACTION_TYPES = {
     0: '0',
+    '00': '00',
     STREET: 'STREET',
     ROW: 'ROW',
     BASKET_US: 'BASKET_US',
