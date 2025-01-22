@@ -1,0 +1,298 @@
+/* AuthenticationStyles.css */
+
+
+/* Main Wrapper */
+#main-wrapper {
+    margin-top: 20px;
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 0;
+}
+
+/* Form Styling */
+.p-5 {
+    padding: 3rem !important;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: #5369f8;
+    box-shadow: 0 0 0 2px rgba(83, 105, 248, 0.2);
+}
+
+/* Button Styling */
+.btn-theme {
+    background-color: #5369f8;
+    border-color: #5369f8;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-theme:hover {
+    background-color: #4358d8;
+    border-color: #4358d8;
+}
+
+/* Forgot Password Link */
+.forgot-link {
+    color: #5369f8 !important;
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* Account Block (Right Side) */
+.account-block {
+    background-image: url('../Media/images/AuthenticationBackground/AuthenticationBackground.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+
+.account-testimonial {
+    position: absolute;
+    bottom: 3rem;
+    left: 1.75rem;
+    right: 1.75rem;
+    color: #fff;
+    text-align: center;
+}
+
+.account-testimonial h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.account-testimonial p {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* Text Theme */
+.text-theme {
+    color: #5369f8 !important;
+}
+
+/* Error Message */
+.text-danger {
+    color: #dc3545;
+    font-size: 0.9rem;
+}
+
+body {
+    margin-top: 20px;
+    background: #f6f9fc;
+}
+
+#main-wrapper {
+    margin-top: 20px;
+}
+
+.account-block {
+    padding: 0;
+    background-image: url('../Media/images/AuthenticationBackground/AuthenticationBackground.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.account-block .overlay {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.account-block .account-testimonial {
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    bottom: 3rem;
+    left: 0;
+    right: 0;
+}
+
+.text-theme {
+    color: #5369f8 !important;
+}
+
+.btn-theme {
+    background-color: #5369f8;
+    border-color: #5369f8;
+    color: #fff;
+}
+
+.btn-theme:hover {
+    background-color: #4358d8;
+    border-color: #4358d8;
+}
+
+.forgot-link {
+    color: #5369f8 !important;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.passwordCriteria p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* User Menu */
+.user-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.user-menu button {
+    background: none;
+    border: 2px solid #000; /* Black border */
+    color: #000; /* Black text */
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.user-menu button:hover {
+    background-color: #000; /* Black background on hover */
+    color: #fff; /* White text on hover */
+}
+
+/* Dropdown Menu */
+.menu-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 150px;
+}
+
+.menu-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-dropdown li {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.menu-dropdown li:hover {
+    background: #f0f0f0;
+}
+
+/* Success Modal */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue theme */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+.btn-theme:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Disabled Links */
+.disabled-link {
+    color: #ccc;
+    cursor: not-allowed;
+}

@@ -1,0 +1,73 @@
+.dice-study-mode {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.dice-study-mode h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #002fff;
+}
+
+.dice-study-mode .question {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dice-study-mode .question h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.dice-study-mode .answers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dice-study-mode .answer-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dice-study-mode .answer-button:hover {
+    opacity: 0.9;
+}
+
+.dice-study-mode .answer-button:active {
+    transform: scale(0.98);
+}
+
+.dice-study-mode p {
+    font-size: 18px;
+    margin-top: 15px;
+    color: #333;
+}
+
+.dice-study-mode .answer-button.selected {
+    background-color: #2196f3;
+    color: white;
+}
+
+.dice-study-mode .answer-button.correct {
+    background-color: #4caf50;
+    color: white;
+}
+
+.dice-study-mode .answer-button.incorrect {
+    background-color: #f44336;
+    color: white;
+}

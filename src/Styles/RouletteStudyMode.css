@@ -1,0 +1,129 @@
+.learning-mode {
+    padding: 20px;
+    text-align: center;
+}
+
+.learning-mode h2 {
+    margin-bottom: 20px;
+}
+
+.learning-mode .question {
+    margin-bottom: 20px;
+}
+
+.learning-mode .question input {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.learning-mode .roulette-table-wrapper {
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.learning-mode button {
+    margin: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* RouletteStudyMode.css */
+
+.roulette-wrapper-study {
+    transform: translate(0, 0);
+    max-width: 800px;
+    width: 100%;
+    backdrop-filter: blur(5px);
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+    border-radius: 30px;
+    border: 1px solid #fff;
+    pointer-events: none; /* Disable all pointer events */
+}
+
+/* RouletteStudyMode.css */
+.study-mode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Add spacing between elements */
+}
+
+.chip.center{
+    opacity: 0.9;
+    outline: blue 2px solid;
+    -webkit-animation: puff-in-center 0.7s cubic-bezier(0.680, -0.550, 0.265, 1.550) both;
+    animation: puff-in-center 0.7s cubic-bezier(0.680, -0.550, 0.265, 1.550) both;
+}
+
+.question-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Add spacing between elements */
+}
+
+.question-section input {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.question-section button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.hint {
+    color: #888;
+    font-style: italic;
+}
+
+
+/* Custom modal styles */
+.custom-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Adjust width as needed */
+    max-width: 90%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Custom overlay styles */
+.custom-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+@-webkit-keyframes puff-in-center {
+    0% {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        -webkit-filter: blur(4px);
+        filter: blur(4px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-filter: blur(0px);
+        filter: blur(0px);
+        opacity: 1;
+    }
+}
+
+
