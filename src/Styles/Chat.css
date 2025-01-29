@@ -1,0 +1,81 @@
+#chat3 .form-control {
+    border-color: transparent;
+}
+
+#chat3 .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.badge-dot {
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-left: 2.9rem;
+    margin-top: -.75rem;
+}
+
+/* Chat.css */
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    transition: left 0.7s ease-in-out; /* Smooth transition */
+}
+
+.chat-container.menu-open {
+    left: calc(1% + 250px);
+}
+
+.chat-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-button:hover {
+    background-color: #0056b3;
+}
+
+.chat-popup {
+    display: flex;
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.friends-list {
+    width: 300px;
+    padding: 10px;
+}
+
+.card.mask-custom {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+}
+
+.card-body {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.badge {
+    margin-left: 5px;
+}

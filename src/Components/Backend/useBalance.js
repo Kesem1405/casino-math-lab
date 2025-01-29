@@ -7,7 +7,7 @@ const useBalance = (initialBalance, username) => {
     useEffect(() => {
         const fetchBalance = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/get-balance?username=${username}`);
+                const response = await fetch(`http://localhost:8080/users/get-balance?username=${username}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch balance');
                 }
@@ -25,11 +25,12 @@ const useBalance = (initialBalance, username) => {
 
     const updateBalanceInBackend = async (newBalance) => {
         try {
+            if(username !== null){
             console.log("Updating balance in backend:", newBalance); // Log the update
             const payload = { username: username, balance: newBalance };
             console.log("Request payload:", payload); // Log the payload
 
-            const response = await fetch('http://localhost:8080/update-balance', {
+            const response = await fetch('http://localhost:8080/users/update-balance', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,10 +45,13 @@ const useBalance = (initialBalance, username) => {
             const data = await response.json();
             console.log("Balance updated successfully:", data); // Log success
             return data.balance; // Return the updated balance from the backend
+                }
+
         } catch (error) {
             console.error('Error updating balance:', error); // Log errors
             throw error; // Re-throw the error for handling in `updateBalance`
         }
+
     };
 
     const updateBalance = async (newBalanceOrCallback) => {

@@ -1,8 +1,16 @@
+
 .search-bar {
-    position: fixed;
-    max-width: 600px;
-    margin: 20px auto;
-    left: 7%;
+    position: absolute;
+    top: 30px;
+    left:15%;
+    transform: translateX(-50%);
+    width: 300px;
+    z-index: 1000;
+    transition: left 0.7s ease-in-out; /* Smooth transition */
+}
+
+.search-bar.menu-open {
+    left: calc(25% + 125px); /* Adjust for the menu width (250px / 2) */
 }
 
 .search-input {
@@ -19,14 +27,16 @@
 
 .search-dropdown {
     position: absolute;
-    top: 100%;
+    top: 100%; /* Position below the search input */
     left: 0;
     right: 0;
     background: white;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: 1001; /* Higher than the search bar to ensure it's on top */
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .search-result {
@@ -36,8 +46,53 @@
     color: #333;
 }
 
-.search-result:hover {
-    background: #f0f0f0;
+.search-results-dropdown {
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1001; /* Ensure dropdown is above other components */
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-result {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.game-result {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+    color: #333;
+}
+
+.game-result:hover {
+    background-color: #f9f9f9;
 }
 
 .search-results {
@@ -48,10 +103,10 @@
 
 .results-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
     gap: 20px;
+    padding: 20px 0;
 }
-
 .result-item {
     padding: 20px;
     border: 1px solid #ccc;
@@ -82,4 +137,90 @@
 
 .pagination button:hover {
     background: #f0f0f0;
+}
+
+.card-box {
+    padding: 20px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    width:25vh;
+    background-color: #fff;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    text-align: center; /* Center content */
+}
+
+
+.card-box:hover {
+    transform: scale(1.02); /* Slightly scale up on hover */
+    background-color: #f9f9f9; /* Light background on hover */
+    cursor: pointer;
+}
+
+.result-username{
+ margin-top:25px;
+}
+.thumb-lg {
+    height: 88px;
+    width: 88px;
+}
+
+.img-thumbnail {
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+.btn-rounded {
+    border-radius: 2em;
+}
+
+
+.text-pink {
+    color: #ff679b !important;
+}
+
+.text-muted {
+    color: #98a6ad !important;
+}
+
+
+h2 {
+    justify-content: center;
+    text-align: center;
+}
+h4 {
+    line-height: 22px;
+    font-size: 18px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.pagination .page-link {
+    color: #007bff;
+    border: 1px solid #dee2e6;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.pagination .page-link:hover {
+    background-color: #f8f9fa;
 }

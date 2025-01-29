@@ -1,8 +1,26 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../../../Styles/AuthenticationStyles.css";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SuccessModal from "./SuccessModal";
+
+// Import all 15 avatars
+import Avatar1 from "../../../Media/images/Avatars/Avatar1.png";
+import Avatar2 from "../../../Media/images/Avatars/Avatar2.png";
+import Avatar3 from "../../../Media/images/Avatars/Avatar3.png";
+import Avatar4 from "../../../Media/images/Avatars/Avatar4.png";
+import Avatar5 from "../../../Media/images/Avatars/Avatar5.png";
+import Avatar6 from "../../../Media/images/Avatars/Avatar6.png";
+import Avatar7 from "../../../Media/images/Avatars/Avatar7.png";
+import Avatar8 from "../../../Media/images/Avatars/Avatar8.png";
+import Avatar9 from "../../../Media/images/Avatars/Avatar9.png";
+import Avatar10 from "../../../Media/images/Avatars/Avatar10.png";
+import Avatar11 from "../../../Media/images/Avatars/Avatar11.png";
+import Avatar12 from "../../../Media/images/Avatars/Avatar12.png";
+import Avatar13 from "../../../Media/images/Avatars/Avatar13.png";
+import Avatar14 from "../../../Media/images/Avatars/Avatar14.png";
+import Avatar15 from "../../../Media/images/Avatars/Avatar15.png";
+import NoAvatar from "../../../Media/images/Avatars/NoAvatar.png";
 
 const Register = ({ language, languageData, onRegister }) => {
     const [userData, setUserData] = useState({
@@ -12,6 +30,7 @@ const Register = ({ language, languageData, onRegister }) => {
         firstName: "",
         lastName: "",
         phoneNumber: "",
+        avatar: Avatar1, // Default avatar
     });
     const [passwordCriteria, setPasswordCriteria] = useState({
         minLength: false,
@@ -19,8 +38,24 @@ const Register = ({ language, languageData, onRegister }) => {
         capitalLetter: false,
     });
     const [error, setError] = useState("");
-    const [showSuccessModal, setShowSuccessModal] = useState(false); // State for success modal
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showAvatarModal, setShowAvatarModal] = useState(false); // State for avatar modal
     const navigate = useNavigate();
+
+    const [selectedAvatar, setSelectedAvatar] = useState(Avatar1); // Default selected avatar
+
+    // Array of all 15 avatars
+    const avatars = [
+        Avatar1, Avatar2, Avatar3, Avatar4, Avatar5,
+        Avatar6, Avatar7, Avatar8, Avatar9, Avatar10,
+        Avatar11, Avatar12, Avatar13, Avatar14, Avatar15, NoAvatar,
+    ];
+
+    const handleAvatarSelect = (avatar) => {
+        setSelectedAvatar(avatar);
+        setUserData({ ...userData, avatar });
+        setShowAvatarModal(false); // Close modal after selection
+    };
 
     const validatePassword = (password) => {
         const minLength = password.length >= 8;
@@ -37,7 +72,7 @@ const Register = ({ language, languageData, onRegister }) => {
             return;
         }
         try {
-            const response = await axios.post("http://localhost:8080/register", userData);
+            const response = await axios.post("http://localhost:8080/users/register", userData);
             if (response.data) {
                 localStorage.setItem("user", JSON.stringify(response.data));
                 onRegister(response.data);
@@ -61,7 +96,6 @@ const Register = ({ language, languageData, onRegister }) => {
 
     const texts = languageData[language].register;
 
-
     return (
         <div id="main-wrapper" className="container">
             {/* Success Modal */}
@@ -70,6 +104,36 @@ const Register = ({ language, languageData, onRegister }) => {
                     message="Registered successfully!"
                     onClose={() => setShowSuccessModal(false)}
                 />
+            )}
+
+            {/* Avatar Selection Modal */}
+            {showAvatarModal && (
+                <div className="modal-backdrop">
+                    <div className="avatar-modal">
+                        <div className="modal-header">
+                            <h5>Choose Your Avatar</h5>
+                            <button
+                                className="close-btn"
+                                onClick={() => setShowAvatarModal(false)}
+                            >
+                                &times;
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="avatar-grid">
+                                {avatars.map((avatar, index) => (
+                                    <img
+                                        key={index}
+                                        src={avatar}
+                                        alt={`Avatar ${index + 1}`}
+                                        className={`avatar-option ${selectedAvatar === avatar ? "selected" : ""}`}
+                                        onClick={() => handleAvatarSelect(avatar)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             )}
 
             <div className="row justify-content-center">
@@ -110,13 +174,13 @@ const Register = ({ language, languageData, onRegister }) => {
                                                     required
                                                 />
                                                 <div className="passwordCriteria mt-2">
-                                                    <p style={{ color: passwordCriteria.minLength ? "green" : "red" }}>
+                                                    <p style={{color: passwordCriteria.minLength ? "green" : "red"}}>
                                                         {texts.minLength} {passwordCriteria.minLength ? "✔️" : "❌"}
                                                     </p>
-                                                    <p style={{ color: passwordCriteria.specialChar ? "green" : "red" }}>
+                                                    <p style={{color: passwordCriteria.specialChar ? "green" : "red"}}>
                                                         {texts.specialChar} {passwordCriteria.specialChar ? "✔️" : "❌"}
                                                     </p>
-                                                    <p style={{ color: passwordCriteria.capitalLetter ? "green" : "red" }}>
+                                                    <p style={{color: passwordCriteria.capitalLetter ? "green" : "red"}}>
                                                         {texts.capitalLetter} {passwordCriteria.capitalLetter ? "✔️" : "❌"}
                                                     </p>
                                                 </div>
@@ -169,6 +233,23 @@ const Register = ({ language, languageData, onRegister }) => {
                                                     required
                                                 />
                                             </div>
+                                            <div className="form-group">
+                                                <label>Choose Avatar</label>
+                                                <div className="text-center">
+                                                    <img
+                                                        src={selectedAvatar}
+                                                        className="avatar img-circle img-thumbnail mb-3"
+                                                        alt="avatar"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-primary"
+                                                        onClick={() => setShowAvatarModal(true)}
+                                                    >
+                                                        Pick an Avatar
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <button type="submit" className="btn btn-theme">
                                                 {texts.title}
                                             </button>
@@ -194,7 +275,7 @@ const Register = ({ language, languageData, onRegister }) => {
 
                     <p className="text-muted text-center mt-3 mb-0">
                         {texts.alreadyHaveAccount}{" "}
-                        <a href="/src/Components/Users/Authentication/Login" className="text-primary ml-1">
+                        <a href="/Login" className="text-primary ml-1">
                             {texts.login}
                         </a>
                     </p>
@@ -203,6 +284,5 @@ const Register = ({ language, languageData, onRegister }) => {
         </div>
     );
 };
-
 
 export default Register;

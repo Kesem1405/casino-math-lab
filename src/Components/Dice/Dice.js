@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DiceStudyMode from './DiceStudyMode';
 import DiceContainer from './DiceContainer';
 import ChipContainer from '../../Components/Roulette/RouletteTableHelpers/Chip/ChipContainer';
-import useBalance from "../Backend/useBalance";
+
 
 const Dice = ({ language, user, balance, updateBalance}) => {
     const [mode, setMode] = useState('gambling'); // 'gambling' or 'study'
@@ -67,6 +67,9 @@ const Dice = ({ language, user, balance, updateBalance}) => {
         const newDice2 = Math.floor(Math.random() * 6) + 1;
         const sum = newDice1 + newDice2;
 
+        // Track the current balance before the roll
+        const initialBalance = balance;
+
         setTimeout(() => {
             setDice1(newDice1);
             setDice2(newDice2);
@@ -78,13 +81,13 @@ const Dice = ({ language, user, balance, updateBalance}) => {
             Object.keys(bets).forEach((betSum) => {
                 if (parseInt(betSum) === sum) {
                     totalWinnings += bets[betSum] * payoutData[betSum].ratio;
-                } else {
-                    totalWinnings -= bets[betSum];
                 }
             });
 
-            const newBalance = balance + totalWinnings;
-            updateBalance(newBalance); // Update balance using the hook
+            // Calculate the new balance after the win/loss
+            const newBalance = initialBalance + totalWinnings;
+
+            updateBalance(newBalance); // Update balance in the backend here (only once)
 
             setResult(
                 totalWinnings > 0

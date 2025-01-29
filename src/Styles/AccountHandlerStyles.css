@@ -1,0 +1,152 @@
+/* Base Styles (Mobile First) */
+.profile-pictures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.profile-picture.selected {
+    border-color: #007bff;
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Avatar Modal */
+.avatar-modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%; /* Default width for smaller screens */
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h5 {
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Avatar Grid */
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Default for small screens */
+    gap: 10px;
+}
+
+.avatar-option {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1; /* Maintain square aspect ratio */
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.avatar-option:hover {
+    transform: scale(1.1);
+}
+
+.avatar-option.selected {
+    border: 3px solid #007bff;
+    transform: scale(1.1);
+}
+
+.notification-badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* Responsive Design */
+/* Tablets and Small Laptops */
+@media (min-width: 600px) {
+    .avatar-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns for tablets */
+    }
+
+    .avatar-modal {
+        width: 80%; /* Slightly wider for tablets */
+    }
+}
+
+/* Laptops and Desktops */
+@media (min-width: 900px) {
+    .avatar-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns for laptops and desktops */
+    }
+
+    .avatar-modal {
+        width: 70%; /* Wider for larger screens */
+    }
+}
+
+/* HD Displays and Large Screens */
+@media (min-width: 1200px) {
+    .avatar-grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 columns for HD displays */
+    }
+
+    .avatar-modal {
+        width: 60%; /* Wider for HD displays */
+    }
+}
+
+/* Phones (Small Screens) */
+@media (max-width: 480px) {
+    .profile-picture {
+        width: 40px;
+        height: 40px; /* Smaller profile pictures for phones */
+    }
+
+    .avatar-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for phones */
+        gap: 5px; /* Smaller gap for phones */
+    }
+
+    .avatar-option {
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .avatar-modal {
+        width: 95%; /* Almost full width for phones */
+    }
+}

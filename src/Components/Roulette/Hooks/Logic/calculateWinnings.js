@@ -113,7 +113,7 @@ const columns = {
 
 
     export const calculateTotalWinningProbability = (bets) => {
-    const totalNumbers = 37;
+    const totalNumbers = 38;
     let coveredNumbers = new Set();
 
     Object.keys(bets).forEach((betId) => {

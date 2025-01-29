@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import Roulette from "./Components/Roulette/Roulette";
 import Dice from "./Components/Dice/Dice";
@@ -25,6 +25,11 @@ import AccountSettings from "./Components/Users/AccountHandler/AccountSettings";
 import Profile from "./Components/Users/AccountHandler/Profile";
 import SearchResults from "./Components/Search/SearchResults";
 import SearchBar from "./Components/Search/SearchBar";
+import Notifications from "./Components/Users/AccountHandler/Notifications";
+import ChatButton from "./Components/Users/Friends/ChatButton.js";
+import FriendsList from "./Components/Users/Friends/FriendsList"; // ייבוא הקומפוננטה ChatButton
+import ChatWindow from './Components/Users/Friends/ChatWindow';
+import JarColorPick from "./Components/JarColorPick/JarColorPick";
 
 
 const App = () => {
@@ -41,7 +46,13 @@ const App = () => {
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const { balance, updateBalance } = useBalance(user?.balance || 0, user?.username);
+    const [selectedFriend, setSelectedFriend] = useState(null);
+    const [showChat, setShowChat] = useState(false);
 
+
+    const handleSelectFriend = (friendUsername) => {
+        setSelectedFriend(friendUsername);
+    };
 
     const games = [
         {
@@ -125,7 +136,7 @@ const App = () => {
         if (user) {
             const fetchBalance = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8080/get-balance?username=${user.username}`);
+                    const response = await fetch(`http://localhost:8080/users/get-balance?username=${user.username}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch balance');
                     }
@@ -149,12 +160,17 @@ const App = () => {
         setIsMenuOpen(true);
         document.getElementById("menu").style.width = "250px";
         document.getElementById("content").style.marginLeft = "250px";
+        document.getElementById("main-logo").style.marginLeft = "250px";
+
+
     };
 
     const closeSlideMenu = () => {
         setIsMenuOpen(false);
         document.getElementById("menu").style.width = "0";
         document.getElementById("content").style.marginLeft = "0";
+        document.getElementById("main-logo").style.marginLeft = "0";
+
     };
 
     const handleLoginSuccess = (userData) => {
@@ -228,8 +244,9 @@ const App = () => {
                 {loadingComplete && (
                     <div id="main">
                         <div id="content">
+                            {/* Main Logo */}
                             <Link to="/">
-                                <img id="main-logo" src={Logo} alt="Main Logo"/>
+                                <img className="main-logo" id="main-logo" src={Logo} alt="Main Logo" />
                             </Link>
 
                             {/* Language Selection Buttons */}
@@ -255,7 +272,7 @@ const App = () => {
                                         <div className="balance">
                                             {language === "en" ? `Balance: $${balance}` : `יתרה: $${balance}`}
                                         </div>
-                                        <UserMenu user={user} onLogout={handleLogout}/>
+                                        <UserMenu user={user} onLogout={handleLogout} />
                                     </>
                                 ) : (
                                     <>
@@ -272,17 +289,18 @@ const App = () => {
                                     </>
                                 )}
                             </div>
+
                             {/* Button to open menu */}
                             <span className="slide">
-                                <a href="#" onClick={openSlideMenu}>
-                                    <FontAwesomeIcon icon={faBars}/>
-                                </a>
-                            </span>
+                            <a href="#" onClick={openSlideMenu}>
+                                <FontAwesomeIcon icon={faBars} />
+                            </a>
+                        </span>
 
                             {/* Side Menu */}
                             <div id="menu" className={`nav ${isMenuOpen ? "open" : ""}`}>
                                 <a href="#" className="close" onClick={closeSlideMenu}>
-                                    <FontAwesomeIcon icon={faTimes}/>
+                                    <FontAwesomeIcon icon={faTimes} />
                                 </a>
                                 <a href="/">{language === "en" ? "Home" : "בית"}</a>
                                 <a href="/introduction">
@@ -295,29 +313,37 @@ const App = () => {
                                     </>
                                 ) : (
                                     <span className="disabled-link">
-                                        {language === "en" ? "Roulette" : "רולטה"}
-                                    </span>
+                                    {language === "en" ? "Roulette" : "רולטה"}
+                                </span>
                                 )}
                                 <a href="/contact">
                                     {language === "en" ? "Contact Us" : "צור קשר"}
                                 </a>
                             </div>
+
+                            {/* Search Bar */}
+                            <SearchBar language={language} isMenuOpen={isMenuOpen}/>
+
+                            {/* Chat Container */}
+                            {user && (
+                                <div>
+                                    <ChatButton
+                                        senderUsername={user.username}
+                                        isMenuOpen={isMenuOpen}
+                                    />
+                                    {showChat && selectedFriend && (
+                                        <ChatWindow
+                                            senderUsername={user.username}
+                                            receiverUsername={selectedFriend}
+                                        />
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
-                <SearchBar />
-                {/* Logo & Loading Progress */}
-                {loadingComplete && (
-                    <>
-                        <div id="loading-bar">
-                            <div
-                                id="loading-bar-progress"
-                                style={{width: `${loadingProgress}%`}}
-                            ></div>
-                        </div>
-                    </>
-                )}
 
+                {/* Main Content */}
                 <main className="main-content">
                     <Routes>
                         <Route
@@ -342,24 +368,30 @@ const App = () => {
                         />
 
                         <Route path="/" element={<GameCards games={games} user={user} />} />
-                        <Route path="/roulette" element={user ? <Roulette language={language} user={user} balance={balance} updateBalance={updateBalance}/> : <Navigate to="/login" />} />
-                        <Route path="/dice" element={user ? <Dice language={language} user={user}  balance={balance} updateBalance={updateBalance} /> : <Navigate to="/login" />} />
+                        <Route path="/roulette" element={user ? <Roulette language={language} user={user} balance={balance} updateBalance={updateBalance} /> : <Navigate to="/login" />} />
+                        <Route path="/dice" element={user ? <Dice language={language} user={user} balance={balance} updateBalance={updateBalance} /> : <Navigate to="/login" />} />
                         <Route
                             path="/contact"
                             element={
                                 <p>{language === "en" ? "Contact page content" : "תוכן דף צור קשר"}</p>
                             }
                         />
-                        <Route path="/ball-picking" element={user ? <p>Ball Picking Game Component Placeholder</p> : <Navigate to="/login" />} />
-                        <Route path="/coin-flip" element={user ? <p>Coin Flip Game Component Placeholder</p> : <Navigate to="/login" />} />
+                        <Route
+                            path="/ball-picking"
+                            element={user ? <JarColorPick /> : <Navigate to="/login" />}
+                        />                        <Route path="/coin-flip" element={user ? <p>Coin Flip Game Component Placeholder</p> : <Navigate to="/login" />} />
 
                         <Route path="/login"
                                element={<Login language={language} languageData={languageDataAuthentication} onLogin={handleLoginSuccess} />} />
                         <Route path="/register"
                                element={<Register language={language} languageData={languageDataAuthentication} onRegister={handleRegisterSuccess} />} />
-                        <Route path="/account-settings" element={<AccountSettings user={user}  onUpdate={handleUpdate} />} />
-                        <Route path="/profile/:username" element={<Profile />} />
-                        <Route path="/search-results" element={<SearchResults />} />
+                        <Route path="/account-settings" element={<AccountSettings user={user} onUpdate={handleUpdate} />} />
+                        <Route path="/profile/:username" element={<Profile language={language} currentUserUsername={user?.username} />} />
+                        <Route path="/search-results" element={<SearchResults language={language} currentUserUsername={user?.username} />} />
+                        <Route
+                            path="/notifications"
+                            element={<Notifications currentUserUsername={user?.username} />}
+                        />
                     </Routes>
                 </main>
 

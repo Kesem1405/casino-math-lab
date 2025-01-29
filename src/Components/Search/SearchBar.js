@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../../Styles/SearchBar.css';
+import { SearchLanguageData } from '../../Language/LanguageData'; // Import language data.
+import NoAvatar from '../../Media/images/Avatars/NoAvatar.png';
 
-const SearchBar = () => {
+const SearchBar = ({ language, isMenuOpen }) => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -26,19 +28,19 @@ const SearchBar = () => {
 
         const fetchResults = async () => {
             try {
-                // Search for users
-                const usersResponse = await axios.get(`http://localhost:8080/search/users?query=${query}`);
+                const usersResponse = await axios.get(`http://localhost:8080/users/search?query=${query}`);
                 const users = usersResponse.data.map((user) => ({ ...user, type: 'user' }));
 
-                // Search for games
                 const filteredGames = games.filter((game) =>
                     game.name.toLowerCase().includes(query.toLowerCase())
                 );
 
                 setResults([...users, ...filteredGames]);
-                setIsDropdownVisible(true);
+                setIsDropdownVisible(users.length > 0 || filteredGames.length > 0);
             } catch (error) {
                 console.error('Error searching:', error);
+                setResults([]);
+                setIsDropdownVisible(false);
             }
         };
 
@@ -52,30 +54,41 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="search-bar">
+        <div className={`search-bar ${isMenuOpen ? 'menu-open' : ''}`}>
             <div className="search-input">
                 <input
                     type="text"
-                    placeholder="Search for users or games..."
+                    placeholder={SearchLanguageData[language].searchPlaceholder}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onFocus={() => setIsDropdownVisible(true)}
                     onBlur={() => setTimeout(() => setIsDropdownVisible(false), 200)}
                 />
-                <button onClick={handleSearch}>Search</button>
+                <button onClick={handleSearch}>{SearchLanguageData[language].searchButton}</button>
             </div>
 
             {/* Dropdown with search results */}
             {isDropdownVisible && results.length > 0 && (
                 <div className="search-dropdown">
-                    {results.map((result) => (
-                        <Link
-                            key={result.id}
-                            to={result.type === 'user' ? `/profile/${result.username}` : result.path}
-                            className="search-result"
-                        >
-                            {result.type === 'user' ? `👤 ${result.username}` : `🎮 ${result.name}`}
-                        </Link>
+                    {results.slice(0, 5).map((result) => (
+                        <div key={result.id} className="search-result">
+                            {result.type === 'user' ? (
+                                <Link to={`/profile/${result.username}`} className="user-result">
+                                    <img
+                                        src={result.avatar || NoAvatar}
+                                        alt="profile"
+                                        className="profile-pic"
+                                    />
+                                    <div className="user-info">
+                                        <span className="username">{result.username}</span>
+                                    </div>
+                                </Link>
+                            ) : (
+                                <Link to={result.path} className="game-result">
+                                    🎮 {result.name}
+                                </Link>
+                            )}
+                        </div>
                     ))}
                 </div>
             )}

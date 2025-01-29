@@ -41,7 +41,7 @@ export const languageDataAuthentication = {
             forgotPassword: "שכחת סיסמה?",
             noAccount: "אין לך חשבון?",
             register: "הרשמה",
-            moto: "העשר את הידע שלך, העשר את כיסך."
+            moto: "העשר את הידע שלך, העשר את כיסך.",
         },
         register: {
             title: "הרשמה",
@@ -159,5 +159,23 @@ export const RouletteLanguageData = {
         lastWinsTable: {
             title: "זכיות אחרונות",
         },
+    },
+};
+
+export const SearchLanguageData = {
+    en: {
+        searchPlaceholder: "Search for users or games...",
+        searchButton: "Search",
+        addFriend: "Send friend request",
+        searchResultsFor: "Search results for",
+        requestSent: 'Pending request'
+
+    },
+    he: {
+        searchPlaceholder: "חפש משתמשים או משחקים...",
+        searchButton: "חפש",
+        addFriend: "הוסף חבר",
+        searchResultsFor: "תוצאות חיפוש עבור",
+        requestSent: 'הבקשה נשלחה'
     },
 };
