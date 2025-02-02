@@ -218,7 +218,7 @@ button {
     padding: 20px;
 }
 
-.betting-table {
+.betting-table-dice {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
@@ -234,21 +234,29 @@ button {
     background-color: #f9f9f9;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;  /* ✅ ADD THIS */
 }
+
 
 .bet-cell.selected {
     background-color: #d1e7dd;
     border-color: #28a745;
 }
 
-.chips {
+.chips-dice {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin: 20px 0;
 }
 
-.chip {
+.chip-dice {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -261,6 +269,7 @@ button {
     background-color: #007bff;
     border: 2px solid transparent;
     transition: transform 0.2s ease, border-color 0.2s ease;
+    transform: translate(-50%, -50%);
 }
 
 

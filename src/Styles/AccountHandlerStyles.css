@@ -13,6 +13,9 @@
     cursor: pointer;
     border: 2px solid transparent;
 }
+.text-primary{
+    text-align: center;
+}
 
 .profile-picture.selected {
     border-color: #007bff;

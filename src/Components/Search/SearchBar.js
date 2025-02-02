@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../../Styles/SearchBar.css';
-import { SearchLanguageData } from '../../Language/LanguageData'; // Import language data.
+import { SearchLanguageData } from '../../Constants/Language/LanguageData'; // Import language data.
 import NoAvatar from '../../Media/images/Avatars/NoAvatar.png';
 
 const SearchBar = ({ language, isMenuOpen }) => {

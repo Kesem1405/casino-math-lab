@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import '../../Styles/SearchBar.css';
 import NoAvatar from '../../Media/images/Avatars/NoAvatar.png';
-import { SearchLanguageData } from '../../Language/LanguageData'; // Import language data
+import { SearchLanguageData } from '../../Constants/Language/LanguageData'; // Import language data
 import { GameSearchResults } from '../../Constants/Constants';
 
 const SearchResults = ({ language, currentUserUsername }) => {

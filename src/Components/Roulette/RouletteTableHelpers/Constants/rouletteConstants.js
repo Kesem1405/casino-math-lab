@@ -24,13 +24,26 @@ export const payouts = {
     line: 5,
     dozen: 2,
     column: 2,
-    red: 1,
-    black: 1,
-    even: 1,
-    odd: 1,
-    low: 1,
-    high: 1,
+    "red/black": 1,
+    "even/odd": 1,
+    "low/high": 1,
 };
+
+export const validSplits = [
+    // Horizontal splits (adjacent numbers in the same row)
+    [1, 2], [2, 3], [4, 5], [5, 6], [7, 8], [8, 9], [10, 11], [11, 12],
+    [13, 14], [14, 15], [16, 17], [17, 18], [19, 20], [20, 21], [22, 23], [23, 24],
+    [25, 26], [26, 27], [28, 29], [29, 30], [31, 32], [32, 33], [34, 35], [35, 36],
+
+    // Vertical splits (adjacent numbers in the same column)
+    [1, 4], [2, 5], [3, 6], [4, 7], [5, 8], [6, 9], [7, 10], [8, 11], [9, 12],
+    [13, 16], [14, 17], [15, 18], [16, 19], [17, 20], [18, 21], [19, 22], [20, 23],
+    [21, 24], [22, 25], [23, 26], [24, 27], [25, 28], [26, 29], [27, 30], [28, 31],
+    [29, 32], [30, 33], [31, 34], [32, 35], [33, 36],
+
+    // Special case: 0 and 00 split (horizontal, only 2 numbers)
+    [0, 19], // Representing 0 and 00
+];
 
 // Probabilities for bet types (American roulette)
 export const probabilities = {
@@ -41,12 +54,9 @@ export const probabilities = {
     line: (6 / 38) * 100,
     dozen: (12 / 38) * 100,
     column: (12 / 38) * 100,
-    red: (18 / 38) * 100,
-    black: (18 / 38) * 100,
-    even: (18 / 38) * 100,
-    odd: (18 / 38) * 100,
-    low: (18 / 38) * 100,
-    high: (18 / 38) * 100,
+    "red/black": (18 / 38) * 100,
+    "even/odd": (18 / 38) * 100,
+    "low/high": (18 / 38) * 100,
 };
 // Red and black numbers
 export const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];

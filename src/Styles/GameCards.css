@@ -1,4 +1,5 @@
 .game-cards-grid {
+    margin-top:10vh;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Three cards per row */
     gap: 20px; /* Spacing between cards */

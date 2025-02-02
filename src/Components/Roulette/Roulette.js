@@ -24,7 +24,7 @@ import {
 import WheelSpinSound from '../../Media/Sounds/WheelSpinSound.mp3';
 import { LastWinsTable } from './RouletteTableHelpers/LastWinsTable/LastWinsTable';
 import useBalance from "../../Components/Backend/useBalance";
-import {RouletteLanguageData} from "../../Language/LanguageData";
+import {RouletteLanguageData} from "../../Constants/Language/LanguageData";
 
 Modal.setAppElement("#root");
 

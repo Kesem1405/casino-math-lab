@@ -4,6 +4,16 @@ import DiceSearchResult from '../Media/images/GameSearchResultsImages/DiceSearch
 import JarSearchResult from '../Media/images/GameSearchResultsImages/JarSearchResult.png';
 import RouletteSearchResult from '../Media/images/GameSearchResultsImages/RouletteSearchResult.png';
 
+import RouletteImage from '../Media/images/RouletteImage.jpg'
+import DiceImage from '../Media/images/DiceImage.jpg'
+import JarImage from '../Media/images/jar.jpg'
+import CoinFlipImage from '../Media/images/CoinFlip.jpg'
+
+import RouletteGif from '../Media/gifs/RouletteGif.gif'
+import DiceGif from '../Media/gifs/DiceGif.gif'
+import JarGif from '../Media/gifs/jar.gif'
+import CoinFlipGif from '../Media/gifs/CoinFlipGif.gif'
+
 export const GameSearchResults = [
     {
         id: 1,
@@ -34,3 +44,75 @@ export const GameSearchResults = [
         image: JarSearchResult,
     },
 ];
+
+export const gamesData = [
+    {
+        name: {
+            en: "Roulette",
+            he: "רולטה",
+        },
+        staticImg: RouletteImage,
+        gifImg: RouletteGif,
+        description: {
+            en: "Test your luck with our interactive roulette game!",
+            he: "בדוק את מזלך עם משחק הרולטה האינטראקטיבי שלנו!",
+        },
+        route: "/roulette",
+        buttonText: {
+            en: "Play Roulette",
+            he: "שחק ברולטה",
+        },
+    },
+    {
+        name: {
+            en: "Dice rolling",
+            he: "הטלת קוביות",
+        },
+        staticImg: DiceImage,
+        gifImg: DiceGif,
+        description: {
+            en: "Roll the dice and explore probabilities.",
+            he: "השלך את הקוביות וחקור הסתברויות.",
+        },
+        route: "/dice",
+        buttonText: {
+            en: "Play Dice",
+            he: "שחק בקוביות",
+        },
+    },
+    {
+        name: {
+            en: "Ball Picking",
+            he: "בחירת כדורים",
+        },
+        staticImg: JarImage,
+        gifImg: JarGif,
+        description: {
+            en: "Pick balls and learn about random events.",
+            he: "בחר כדורים ולמד על אירועים אקראיים.",
+        },
+        route: "/ball-picking",
+        buttonText: {
+            en: "Play Ball Picking",
+            he: "שחק בבחירת כדורים",
+        },
+    },
+    {
+        name: {
+            en: "Coin Flip",
+            he: "הטלת מטבע",
+        },
+        staticImg: CoinFlipImage,
+        gifImg: CoinFlipGif,
+        description: {
+            en: "Flip a coin and analyze the outcomes.",
+            he: "הפוך מטבע ונתח את התוצאות.",
+        },
+        route: "/coin-flip",
+        buttonText: {
+            en: "Play Coin Flip",
+            he: "שחק בהפיכת מטבע",
+        },
+    },
+];
+

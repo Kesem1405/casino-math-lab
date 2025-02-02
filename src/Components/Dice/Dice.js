@@ -1,13 +1,14 @@
+// src/Components/Dice/Dice.js
 import React, { useState } from 'react';
 import '../../Styles/Dice.css';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DiceStudyMode from './DiceStudyMode';
 import DiceContainer from './DiceContainer';
-import ChipContainer from '../../Components/Roulette/RouletteTableHelpers/Chip/ChipContainer';
+import {ChipContainer, chipsMap} from '../Roulette/RouletteTableHelpers/Chip/ChipContainer';
+import {WinningModal} from "../Roulette/Modals/WinningModal/WinningModal";
 
-
-const Dice = ({ language, user, balance, updateBalance}) => {
+const Dice = ({ language, user, balance, updateBalance }) => {
     const [mode, setMode] = useState('gambling'); // 'gambling' or 'study'
     const [dice1, setDice1] = useState(1);
     const [dice2, setDice2] = useState(1);
@@ -18,6 +19,8 @@ const Dice = ({ language, user, balance, updateBalance}) => {
     const [winningSum, setWinningSum] = useState(null);
     const [showPayoutModal, setShowPayoutModal] = useState(false);
     const [selectedChipValue, setSelectedChipValue] = useState(1); // Track selected chip value
+    const [showWinningModal, setShowWinningModal] = useState(false); // Winning modal state
+    const [winningAmount, setWinningAmount] = useState(0);
 
     const payoutData = {
         2: { ratio: 36, probability: '2.78%' },
@@ -48,7 +51,10 @@ const Dice = ({ language, user, balance, updateBalance}) => {
 
         setBets((prevBets) => ({
             ...prevBets,
-            [value]: (prevBets[value] || 0) + selectedChipValue,
+            [value]: {
+                amount: (prevBets[value]?.amount || 0) + selectedChipValue,
+                chip: selectedChipValue, // Store the chip value
+            },
         }));
     };
 
@@ -66,8 +72,6 @@ const Dice = ({ language, user, balance, updateBalance}) => {
         const newDice1 = Math.floor(Math.random() * 6) + 1;
         const newDice2 = Math.floor(Math.random() * 6) + 1;
         const sum = newDice1 + newDice2;
-
-        // Track the current balance before the roll
         const initialBalance = balance;
 
         setTimeout(() => {
@@ -80,14 +84,17 @@ const Dice = ({ language, user, balance, updateBalance}) => {
             let totalWinnings = 0;
             Object.keys(bets).forEach((betSum) => {
                 if (parseInt(betSum) === sum) {
-                    totalWinnings += bets[betSum] * payoutData[betSum].ratio;
+                    totalWinnings += bets[betSum].amount * payoutData[betSum].ratio;
                 }
             });
 
-            // Calculate the new balance after the win/loss
             const newBalance = initialBalance + totalWinnings;
+            updateBalance(newBalance);
 
-            updateBalance(newBalance); // Update balance in the backend here (only once)
+            if (totalWinnings > 0) {
+                setWinningAmount(totalWinnings);
+                setShowWinningModal(true); // Show the winning modal
+            }
 
             setResult(
                 totalWinnings > 0
@@ -95,13 +102,14 @@ const Dice = ({ language, user, balance, updateBalance}) => {
                         ? `You win $${totalWinnings}!`
                         : `ניצחת $${totalWinnings}!`
                     : language === 'en'
-                        ? `You lose $${Math.abs(totalWinnings)}!`
-                        : `הפסדת $${Math.abs(totalWinnings)}!`
+                        ? `You lose!`
+                        : `הפסדת!`
             );
 
             setBets({});
         }, 1000);
     };
+
 
     return (
         <div className="dice-game">
@@ -134,7 +142,7 @@ const Dice = ({ language, user, balance, updateBalance}) => {
                     )}
 
                     {/* Betting Table */}
-                    <div className="betting-table">
+                    <div className="betting-table-dice">
                         {Array.from({ length: 11 }, (_, i) => i + 2).map((value) => (
                             <div
                                 key={value}
@@ -142,13 +150,22 @@ const Dice = ({ language, user, balance, updateBalance}) => {
                                 onClick={() => handleBet(value)}
                             >
                                 <div className="number">{value}</div>
-                                <div className="bet">${bets[value] || 0}</div>
+                                {bets[value] && (
+                                    <div className="chip-dice">
+                                        <img
+                                            src={Object.values(chipsMap).find((chip) => chip.value === bets[value].chip)?.icon}
+                                            alt={`Chip ${bets[value].chip}`}
+                                            width={32}
+                                            height={32}
+                                        />
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
 
                     {/* Chips */}
-                    <div className="chips">
+                    <div className="chips-dice">
                         <ChipContainer onChipChange={handleChipChange} />
                     </div>
 
@@ -200,6 +217,15 @@ const Dice = ({ language, user, balance, updateBalance}) => {
                         </Modal.Footer>
                     </Modal>
                 </>
+            )}
+
+            {showWinningModal && (
+                <WinningModal
+                    amount={winningAmount}
+                    onClose={() => setShowWinningModal(false)}
+                    language={language}
+                    winningNumber={winningSum}
+                />
             )}
 
             {mode === 'study' && <DiceStudyMode language={language} user={user} balance={balance} updateBalance={updateBalance}/>}

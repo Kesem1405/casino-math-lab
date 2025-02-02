@@ -1,6 +1,8 @@
 .jar-color-pick {
     text-align: center;
-    padding: 20px;
+    padding: 40px 20px;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
 }
 
 .jar {
@@ -121,15 +123,20 @@
 .winning-balls {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin-top: 20px;
 }
+
 
 .winning-ball {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.7);
     margin: 0 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.7);
     background: radial-gradient(circle at 30% 30%, white, var(--color));
 }
 
@@ -146,14 +153,11 @@
 }
 
 .round-number {
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
     font-size: 12px;
     color: #000000;
     font-weight: bold;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    margin: 0;  /* Ensure there's no margin interfering */
 }
 
 .betting-table-jar {
@@ -179,24 +183,26 @@
 }
 
 .rounds-selection {
-    display: flex;
-    gap: 10px;
+    margin: 20px 0;
 }
-
 .rounds-selection button {
     padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin: 5px;
     cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    background-color: #f0f0f0;
-    font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s;
+    background-color: #ddd;
+    transition: background-color 0.3s ease;
 }
 
 .rounds-selection button.active {
-    background-color: #4caf50;
+    background-color: #0099cc;
     color: white;
+}
+
+.rounds-selection button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 .color-buttons {
@@ -243,24 +249,40 @@
     border: 3px solid black;
 }
 
+.bet-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
 .shuffle-button {
     padding: 15px 30px;
     cursor: pointer;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     color: #000000;
+    font-size: 1.2rem;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s;
     background: linear-gradient(90deg, rgb(69,148,252,1) 0%, rgb(255, 95, 95) 50%, rgba(255, 242, 95) 100%);
-
+    margin-top:30px;
 }
 
 .shuffle-button:hover {
-    background-color: #45a049;
+    transform: scale(1.1);
 }
 
+.shuffle-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.study-mode-button{
+
+}
 .result {
     margin-top: 20px;
-    font-size: 1.2em;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e74c3c;
 }

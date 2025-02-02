@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ChatWindow from './ChatWindow';
-import FriendsList from './FriendsList';
+import FriendsList from '../Friends/FriendsList';
 import '../../../Styles/Chat.css';
 
 const ChatButton = ({ senderUsername, isMenuOpen }) => {

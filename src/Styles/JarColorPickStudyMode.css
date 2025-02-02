@@ -1,0 +1,144 @@
+.jar-color-pick-study-mode {
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.jar-color-pick-study-mode h2 {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+}
+
+.jar-color-pick-study-mode .question {
+    margin-top: 20px;
+}
+
+.jar-color-pick-study-mode .question h3 {
+    font-size: 20px;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+.jar-color-pick-study-mode .answers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.jar-color-pick-study-mode .answer-line button {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    background: #c1c1c1;
+    color: black;
+    -webkit-text-stroke: 1px #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+
+.jar-color-pick-study-mode button:hover {
+    background-color: #0056b3;
+}
+
+.jar-color-pick-study-mode .answer-line button:hover {
+    background: #ddd;
+}
+
+.jar-color-pick-study-mode .answer-line button.selected {
+    background: #007bff;
+    color: white;
+}
+
+.jar-color-pick-study-mode .answer-line button.correct {
+    background: #28a745;
+    color: white;
+    border-color: #218838;
+}
+
+.jar-color-pick-study-mode .answer-line button.incorrect {
+    background: #dc3545;
+    color: white;
+    border-color: #c82333;
+}
+
+.jar-color-pick-study-mode button:disabled {
+    cursor: not-allowed;
+}
+
+.jar-color-pick-study-mode p {
+    font-size: 18px;
+    color: #333;
+}
+
+.jar-color-pick-study-mode .jar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.jar-color-pick-study-mode .ball-jar-study-mode {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease-in-out;
+    background: radial-gradient(circle at 30% 30%, #ffffff, var(--color) 80%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+}
+
+.jar-color-pick-study-mode .black { background-color: black; }
+.jar-color-pick-study-mode .green { background-color: green; }
+.jar-color-pick-study-mode .white { background-color: white; }
+.jar-color-pick-study-mode .yellow { background-color: yellow; }
+.jar-color-pick-study-mode .blue { background-color: dodgerblue; }
+.jar-color-pick-study-mode .red { background-color: #e40f0f; }
+
+
+
+.jar-color-pick-study-mode .button-jar-study-mode {
+    padding: 10px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.jar-color-pick-study-mode .answer-button.selected {
+    background-color: #2196f3;
+    color: white;
+}
+
+.jar-color-pick-study-mode .button-jar-study-mode:hover {
+    background-color: #0056b3;
+}
+
+.jar-color-pick-study-mode .answer-button.selected {
+    background-color: #2196f3;
+    color: white;
+}
+
+.jar-color-pick-study-mode .answer-button.correct {
+    background-color: #4caf50;
+    color: white;
+}
+
+.jar-color-pick-study-mode .answer-button.incorrect {
+    background-color: #f44336;
+    color: white;
+}

@@ -13,7 +13,7 @@ const UserMenu = ({ user, onLogout }) => {
         const fetchNotificationCount = async () => {
             try {
                 const response = await axios.get('http://localhost:8080/users/get-notifications', {
-                    params: { username: user.username } // Fetch notifications for the current user
+                    params: { username: user.username, avatar:user.avatar } // Fetch notifications for the current user
                 });
                 setNotificationCount(response.data.length); // Set the count of notifications
             } catch (error) {
@@ -41,10 +41,11 @@ const UserMenu = ({ user, onLogout }) => {
     return (
         <div className="user-menu" ref={menuRef}>
             <button
-                className="btn btn-theme"
+                className="btn btn-theme border-0"
                 onClick={() => setIsMenuOpen(!isMenuOpen)} // Toggle menu on click
             >
-                {user.username}
+               <img src={user.avatar} alt={user.username} style={{width:"50px", height:"50px", borderRadius:"50%"}} />
+                <p className="text-muted">{user.username}</p>
             </button>
             {isMenuOpen && (
                 <div className="menu-dropdown">

@@ -179,3 +179,105 @@ export const SearchLanguageData = {
         requestSent: 'הבקשה נשלחה'
     },
 };
+
+export const LanguageDataJarStudyMode = {
+    en: {
+        studyMode: "Study Mode",
+        questionNumber: "Question",
+        loadingNextQuestion: "Loading next question...",
+        checkAnswer: "Check Answer",
+        correctAnswer: "Correct! 🎉 +$10",
+        incorrectAnswer: "Incorrect. The correct answer is: {correctAnswer}",
+        score: "Score:",
+
+        singleBallQuestion: "What is the probability of drawing a {color} ball?",
+        twoBallsWithoutReplacement: "What is the probability of drawing a {color1} first and a {color2} second without replacement?",
+        twoBallsWithReplacement: "What is the probability of drawing a {color} ball twice with replacement?",
+
+        colors: {
+            black: "black",
+            red: "red",
+            blue: "blue",
+            yellow: "yellow",
+            green: "green",
+            white: "white"
+        }
+    },
+    he: {
+        studyMode: "מצב לימוד",
+        questionNumber: "שאלה",
+        loadingNextQuestion: "טוען שאלה הבאה...",
+        checkAnswer: "בדוק תשובה",
+        correctAnswer: "נכון! 🎉 +10$",
+        incorrectAnswer: "לא נכון. התשובה הנכונה היא: {correctAnswer}",
+        score: "ניקוד:",
+        singleBallQuestion: "מה ההסתברות להוציא כדור {color}?",
+        twoBallsWithoutReplacement: "מה ההסתברות להוציא כדור {color1} ראשון וכדור {color2} שני ללא החזרה?",
+        twoBallsWithReplacement: "מה ההסתברות להוציא כדור {color} פעמיים עם החזרה?",
+
+        colors: {
+            black: "שחור",
+            red: "אדום",
+            blue: "כחול",
+            yellow: "צהוב",
+            green: "ירוק",
+            white: "לבן"
+        }
+    }
+};
+
+export const JarColorPickLanguageData = {
+    en: {
+        gameTitle: "Jar Color Pick Game",
+        enterStudyModeButton: "Enter Study Mode",
+        exitStudyModeButton: "Exit Study Mode",
+        betAmount: "Bet Amount:",
+        roundsSelection: "Rounds Selection",
+        oneRound: "1 Round",
+        twoRounds: "2 Rounds",
+        round1Bet: "Round 1 Bet:",
+        round2Bet: "Round 2 Bet:",
+        withReplacement: "With Replacement",
+        withoutReplacement: "Without Replacement",
+        colorButtons: {
+            red: "Red",
+            blue: "Blue",
+            yellow: "Yellow",
+        },
+        shuffleButton: "Shuffle",
+        insufficientBalance: "Insufficient balance!",
+        selectColors: "Please select colors for both rounds.",
+        selectColor: "Please select a color for the round.",
+        result: "Result:",
+        wonMessage: "You won! Payout: $",
+        lostMessage: "You lost. Result: ",
+        selectedColor: "Selected Color: ",
+    },
+    he: {
+        gameTitle: "משחק בחירת צבע בצנצנת",
+        enterStudyModeButton: "היכנס למצב לימוד",
+        exitStudyModeButton: "יציאה ממצב לימוד",
+        betAmount: "סכום ההימור:",
+        roundsSelection: "בחירת סיבובים",
+        oneRound: "סיבוב 1",
+        twoRounds: "2 סיבובים",
+        round1Bet: "הימור סיבוב 1:",
+        round2Bet: "הימור סיבוב 2:",
+        withReplacement: "עם חזרות",
+        withoutReplacement: "בלי חזרות",
+        colorButtons: {
+            red: "אדום",
+            blue: "כחול",
+            yellow: "צהוב",
+        },
+        shuffleButton: "ערבוב",
+        insufficientBalance: "יתרה לא מספקת!",
+        selectColors: "אנא בחר צבעים לשני הסיבובים.",
+        selectColor: "אנא בחר צבע להימור בסיבוב.",
+        result: "תוצאה:",
+        wonMessage: "ניצחת! תשלום: $",
+        lostMessage: "הפסדת. התוצאה: ",
+        selectedColor: "הצבע שנבחר: ",
+    },
+};
+

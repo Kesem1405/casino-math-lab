@@ -1,15 +1,15 @@
 
 .search-bar {
-    position: absolute;
-    top: 30px;
-    left:15%;
+    position: relative;
+    top: -60px;
+    left: 320px; /* Adjust based on your layout */
     transform: translateX(-50%);
-    width: 300px;
+    width: 330px;
     z-index: 1000;
     transition: left 0.7s ease-in-out; /* Smooth transition */
 }
 
-.search-bar.menu-open {
+.search-bar.nav-open {
     left: calc(25% + 125px); /* Adjust for the menu width (250px / 2) */
 }
 
@@ -23,6 +23,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width:450px;
 }
 
 .search-dropdown {

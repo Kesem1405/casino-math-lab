@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../Styles/DiceStudyMode.css';
 import DiceContainer from './DiceContainer';
-import useBalance from '../Backend/useBalance'; // Adjust the path as needed
 
 const DiceStudyMode = ({ language, user, balance, updateBalance }) => {
 
@@ -12,7 +11,7 @@ const DiceStudyMode = ({ language, user, balance, updateBalance }) => {
     const [questionNumber, setQuestionNumber] = useState(1);
     const [dice1, setDice1] = useState(1);
     const [dice2, setDice2] = useState(1);
-    const [rolling, setRolling] = useState(false);
+    const [rolling] = useState(false);
     const [isCheckingAnswer, setIsCheckingAnswer] = useState(false);
     const [correctAnswer, setCorrectAnswer] = useState(null);
     const [isLoading, setIsLoading] = useState(false);

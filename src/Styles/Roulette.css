@@ -263,10 +263,7 @@ body {
         height: 100px;
     }
 
-    .balance {
-        font-size: 1rem;
-        padding: 6px 10px;
-    }
+
 
     .buttons button {
         padding: 10px 12px;
@@ -289,10 +286,6 @@ body {
         height: 90px;
     }
 
-    .balance {
-        font-size: 0.9rem;
-        padding: 5px 8px;
-    }
 
     .buttons button {
         padding: 8px 10px;
