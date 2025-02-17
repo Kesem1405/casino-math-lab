@@ -10,19 +10,30 @@ const UserMenu = ({ user, onLogout }) => {
 
     // Fetch notification count when the component mounts
     useEffect(() => {
-        const fetchNotificationCount = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/users/get-notifications', {
-                    params: { username: user.username, avatar:user.avatar } // Fetch notifications for the current user
-                });
-                setNotificationCount(response.data.length); // Set the count of notifications
-            } catch (error) {
-                console.error('Error fetching notifications:', error);
-            }
-        };
+        if (user?.username) { // Safe check for user and username
+            const fetchNotificationCount = async () => {
+                try {
+                    const token = localStorage.getItem("authToken"); // Get the token from localStorage
+                    if (!token) {
+                        console.error('No token found');
+                        return;
+                    }
+                    const response = await axios.get('http://localhost:8080/users/get-notifications', {
+                        params: { username: user.username },
+                        headers: {
+                            'Authorization': `Bearer ${token}` // Add the token in the Authorization header
+                        }
+                    });
+                    setNotificationCount(response.data.length); // Set the count of notifications
+                } catch (error) {
+                    console.error('Error fetching notifications:', error);
+                }
+            };
 
-        fetchNotificationCount();
-    }, [user.username]);
+            fetchNotificationCount();
+        }
+    }, [user]); // Only run the effect if user is not null and has a username
+
 
     // Close the menu when clicking outside
     useEffect(() => {
@@ -44,7 +55,7 @@ const UserMenu = ({ user, onLogout }) => {
                 className="btn btn-theme border-0"
                 onClick={() => setIsMenuOpen(!isMenuOpen)} // Toggle menu on click
             >
-               <img src={user.avatar} alt={user.username} style={{width:"50px", height:"50px", borderRadius:"50%"}} />
+                <img src={user.avatar} alt={user.username} style={{width:"50px", height:"50px", borderRadius:"50%"}} />
                 <p className="text-muted">{user.username}</p>
             </button>
             {isMenuOpen && (

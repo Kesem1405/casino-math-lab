@@ -1,5 +1,7 @@
 /* AuthenticationStyles.css */
-
+.row{
+    margin-top:5%;
+}
 
 /* Main Wrapper */
 #main-wrapper {

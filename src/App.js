@@ -26,6 +26,7 @@ import { gamesData } from "./Constants/Constants";
 import Notifications from "./Components/Users/AccountHandler/Notifications";
 import Profile from "./Components/Users/AccountHandler/Profile";
 import AccountSettings from "./Components/Users/AccountHandler/AccountSettings";
+import SearchResults from "./Components/Search/SearchResults";
 
 const App = () => {
     const [language, setLanguage] = useState(localStorage.getItem("selectedLanguage") || "en");
@@ -33,12 +34,7 @@ const App = () => {
     const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null);
     const { balance, updateBalance } = useBalance(user?.balance || 0, user?.username || "");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    useEffect(() => {
-        if (user) {
-            localStorage.setItem("user", JSON.stringify({...user, balance}));
-        }
-    }, [balance, user]);
+    const [sessionExpired, setSessionExpired] = useState(false);
 
     useEffect(() => {
         if (user?.username) { // Safe check for user and username
@@ -50,6 +46,7 @@ const App = () => {
                     updateBalance(data.balance);
                 } catch (error) {
                     console.error("Error fetching balance:", error);
+                    setSessionExpired(true);
                 }
             };
             fetchBalance();
@@ -76,6 +73,7 @@ const App = () => {
         if (userData && userData.balance !== undefined) {
             setUser(userData);
             updateBalance(userData.balance);
+            localStorage.setItem("authToken",userData.token)
             localStorage.setItem("user", JSON.stringify(userData));
         } else {
             console.error("Balance not found in user data");
@@ -92,15 +90,15 @@ const App = () => {
         <Router>
             <div className="app">
                 {!loadingComplete ? (
-                    <LoadingScreen logo={Logo}/>
+                    <LoadingScreen logo={Logo} />
                 ) : (
                     <div id="main">
                         <div id="content">
                             <Link to="/">
-                                <img className="main-logo" src={Logo} alt="Main Logo"/>
+                                <img className="main-logo" src={Logo} alt="Main Logo" />
                             </Link>
 
-                            <LanguageSelector language={language} onSelectLanguage={handleLanguageSelection}/>
+                            <LanguageSelector language={language} onSelectLanguage={handleLanguageSelection} />
 
                             <div className="auth-buttons">
                                 {user ? (
@@ -110,19 +108,25 @@ const App = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <Link to="/login">
-                                            <button>{language === "en" ? "Login" : "כניסה"}</button>
-                                        </Link>
-                                        <Link to="/register">
-                                            <button>{language === "en" ? "Register" : "הרשמה"}</button>
-                                        </Link>
+                                        {sessionExpired ? (
+                                            <p>{language === "en" ? "Your session has expired. Please log in again." : "הסשן שלך פג. אנא התחבר שוב."}</p>
+                                        ) : (
+                                            <>
+                                                <Link to="/login">
+                                                    <button>{language === "en" ? "Login" : "כניסה"}</button>
+                                                </Link>
+                                                <Link to="/register">
+                                                    <button>{language === "en" ? "Register" : "הרשמה"}</button>
+                                                </Link>
+                                            </>
+                                        )}
                                     </>
                                 )}
                             </div>
 
-                            <SideMenu language={language} user={user} handleLogout={handleLogout}/>
+                            <SideMenu language={language} user={user} handleLogout={handleLogout} />
 
-                            <SearchBar language={language}/>
+                            <SearchBar language={language} />
 
                             {user && <ChatContainer senderUsername={user.username} isMenuOpen={isMenuOpen} />}
                         </div>
@@ -131,28 +135,17 @@ const App = () => {
 
                 <main className="main-content">
                     <Routes>
-                        <Route path="/" element={<GameCards games={gamesData} language={language} user={user}/>}/>
-                        <Route path="/roulette" element={user ?
-                            <Roulette language={language} user={user} balance={balance}
-                                      updateBalance={updateBalance}/> : <Navigate to="/login"/>}/>
-                        <Route path="/dice" element={user ?
-                            <Dice language={language} user={user} balance={balance} updateBalance={updateBalance}/> :
-                            <Navigate to="/login"/>}/>
-                        <Route path="/ball-picking" element={user ?
-                            <JarColorPick language={language} user={user} balance={balance}
-                                          updateBalance={updateBalance}/> : <Navigate to="/login"/>}/>
-                        <Route path="/coin-flip"
-                               element={user ? <p>Coin Flip Game Component Placeholder</p> : <Navigate to="/login"/>}/>
-                        <Route path="/login"
-                               element={<Login language={language} languageData={languageDataAuthentication}
-                                               onLogin={handleLoginSuccess}/>}/>
-                        <Route path="/register"
-                               element={<Register language={language} languageData={languageDataAuthentication}/>}/>
-                        <Route path="/notifications"
-                               element={<Notifications/>}/>
+                        <Route path="/" element={<GameCards games={gamesData} language={language} user={user} />} />
+                        <Route path="/roulette" element={user ? <Roulette language={language} user={user} balance={balance} updateBalance={updateBalance} /> : <Navigate to="/login" />} />
+                        <Route path="/dice" element={user ? <Dice language={language} user={user} balance={balance} updateBalance={updateBalance} /> : <Navigate to="/login" />} />
+                        <Route path="/ball-picking" element={user ? <JarColorPick language={language} user={user} balance={balance} updateBalance={updateBalance} /> : <Navigate to="/login" />} />
+                        <Route path="/coin-flip" element={user ? <p>Coin Flip Game Component Placeholder</p> : <Navigate to="/login" />} />
+                        <Route path="/login" element={<Login language={language} languageData={languageDataAuthentication} onLogin={handleLoginSuccess} />} />
+                        <Route path="/register" element={<Register language={language} languageData={languageDataAuthentication} />} />
                         <Route path="/profile/:username" element={user ? <Profile language={language} currentUserUsername={user.username} /> : <Navigate to="/login" />} />
-                        <Route path="/account-settings" element={<AccountSettings user={user} onUpdate={null} />}/>
-
+                        <Route path="/account-settings" element={<AccountSettings user={user} onUpdate={null} />} />
+                        <Route path="/search-results" element={<SearchResults language={language} currentUserUsername={user?.username} />} />
+                        <Route path="/notifications" element={<Notifications currentUserUsername={user?.username}/>} />
                     </Routes>
                 </main>
             </div>
