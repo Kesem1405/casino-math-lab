@@ -52,7 +52,7 @@ const AccountSettings = ({ user, onUpdate }) => {
 
     const handleSave = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/users/update-profile', formData, {
+            const response = await axios.post('https://casino-math-lab-backend.onrender.com/users/update-profile', formData, {
                 headers: { 'Content-Type': 'application/json' },
             });
 
@@ -70,7 +70,7 @@ const AccountSettings = ({ user, onUpdate }) => {
     };
     const handleAvatarSelect = async (avatar) => {
         try {
-            const response = await axios.post('http://localhost:8080/users/update-avatar', {
+            const response = await axios.post('https://casino-math-lab-backend.onrender.com/users/update-avatar', {
                 username: user.username, // Ensure this is not null
                 avatar: avatar, // Ensure this is not null
             }, {

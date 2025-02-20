@@ -7,7 +7,7 @@ const useBalance = (initialBalance, username) => {
     useEffect(() => {
         const fetchBalance = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/users/get-balance?username=${username}`);
+                const response = await fetch(`https://casino-math-lab-backend.onrender.com/users/get-balance?username=${username}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch balance');
                 }
@@ -30,7 +30,7 @@ const useBalance = (initialBalance, username) => {
             const payload = { username: username, balance: newBalance };
             console.log("Request payload:", payload); // Log the payload
 
-            const response = await fetch('http://localhost:8080/users/update-balance', {
+            const response = await fetch('https://casino-math-lab-backend.onrender.com/users/update-balance', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

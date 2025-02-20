@@ -72,7 +72,7 @@ const Register = ({ language, languageData, onRegister }) => {
             return;
         }
         try {
-            const response = await axios.post("http://localhost:8080/users/register", userData);
+            const response = await axios.post("https://casino-math-lab-backend.onrender.com/users/register", userData);
             if (response.data) {
                 localStorage.setItem("user", JSON.stringify(response.data));
                 onRegister(response.data);

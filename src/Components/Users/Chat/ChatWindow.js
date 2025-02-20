@@ -26,7 +26,7 @@ const ChatWindow = ({ senderUsername, receiverUsername, onClose }) => {
 
     const sendMessage = async () => {
         try {
-            await axios.post('http://localhost:8080/messages/send', {
+            await axios.post('https://casino-math-lab-backend.onrender.com/messages/send', {
                 sender: senderUsername,
                 receiver: receiverUsername,
                 content: newMessage,

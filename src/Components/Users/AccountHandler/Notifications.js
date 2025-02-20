@@ -8,7 +8,7 @@ const Notifications = ({ currentUserUsername }) => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/users/get-notifications', {
+                const response = await axios.get('https://casino-math-lab-backend.onrender.com/users/get-notifications', {
                     params: { username: currentUserUsername }
                 });
                 // Log the response to see what is being returned
@@ -27,14 +27,14 @@ const Notifications = ({ currentUserUsername }) => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/users/get-notifications', {
+                const response = await axios.get('https://casino-math-lab-backend.onrender.com/users/get-notifications', {
                     params: { username: currentUserUsername }
                 });
                 setNotifications(response.data);
 
                 // Mark notifications as seen after fetching
                 if (response.data.length > 0) {
-                    await axios.post('http://localhost:8080/users/mark-notifications-as-seen', null, {
+                    await axios.post('https://casino-math-lab-backend.onrender.com/users/mark-notifications-as-seen', null, {
                         params: { username: currentUserUsername }
                     });
                 }
@@ -50,7 +50,7 @@ const Notifications = ({ currentUserUsername }) => {
 
     const handleResponse = async (notificationId, accepted) => {
         try {
-            await axios.post('http://localhost:8080/users/respond-to-friend-request', {
+            await axios.post('https://casino-math-lab-backend.onrender.com/users/respond-to-friend-request', {
                 notificationId,
                 accepted,
             });
