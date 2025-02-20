@@ -8,7 +8,7 @@ const FriendsList = ({ username, render }) => {
     useEffect(() => {
         const fetchFriends = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/users/get-friends', {
+                const response = await axios.get('https://casino-math-lab-backend.onrender.com/users/get-friends', {
                     params: { username: username }
                 });
                 setFriends(response.data);

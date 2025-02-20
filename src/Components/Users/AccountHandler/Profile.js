@@ -15,7 +15,7 @@ const Profile = ({ language, currentUserUsername }) => {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/users/get-profile?username=${username}`);
+                const response = await axios.get(`https://casino-math-lab-backend.onrender.com/users/get-profile?username=${username}`);
                 setUser(response.data);
             } catch (error) {
                 console.error('Failed to fetch user profile:', error);
@@ -26,7 +26,7 @@ const Profile = ({ language, currentUserUsername }) => {
 
         const fetchFriendRequestStatus = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/users/check-friend-request?senderUsername=${currentUserUsername}&receiverUsername=${username}`);
+                const response = await axios.get(`https://casino-math-lab-backend.onrender.com/users/check-friend-request?senderUsername=${currentUserUsername}&receiverUsername=${username}`);
                 setFriendRequestSent(response.data.exists);
             } catch (error) {
                 console.error('Error fetching friend request status:', error);
@@ -39,7 +39,7 @@ const Profile = ({ language, currentUserUsername }) => {
 
     const handleAddFriend = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/users/send-friend-request', {
+            const response = await axios.post('https://casino-math-lab-backend.onrender.com/users/send-friend-request', {
                 senderUsername: currentUserUsername,
                 receiverUsername: username,
             });

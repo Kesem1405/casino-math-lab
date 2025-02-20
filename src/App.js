@@ -40,7 +40,7 @@ const App = () => {
         if (user?.username) { // Safe check for user and username
             const fetchBalance = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8080/users/get-balance?username=${user.username}`);
+                    const response = await fetch(`https://casino-math-lab-backend.onrender.com/users/get-balance?username=${user.username}`);
                     if (!response.ok) throw new Error("Failed to fetch balance");
                     const data = await response.json();
                     updateBalance(data.balance);

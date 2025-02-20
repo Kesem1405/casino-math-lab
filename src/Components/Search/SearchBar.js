@@ -28,7 +28,7 @@ const SearchBar = ({ language, isMenuOpen }) => {
 
         const fetchResults = async () => {
             try {
-                const usersResponse = await axios.get(`http://localhost:8080/users/search?query=${query}`);
+                const usersResponse = await axios.get(`https://casino-math-lab-backend.onrender.com/users/search?query=${query}`);
                 const users = usersResponse.data.map((user) => ({ ...user, type: 'user' }));
 
                 const filteredGames = games.filter((game) =>

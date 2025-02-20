@@ -13,11 +13,11 @@ const ChatButton = ({ senderUsername, isMenuOpen }) => {
     const fetchUnreadCount = async () => {
         try {
             // Fetch the user ID for the receiver (the user viewing the chat)
-            const userResponse = await axios.get(`http://localhost:8080/users/get-profile?username=${senderUsername}`);
+            const userResponse = await axios.get(`https://casino-math-lab-backend.onrender.com/users/get-profile?username=${senderUsername}`);
             const userId = userResponse.data.id;
 
             // Fetch the unread message count for the receiver
-            const response = await axios.get(`http://localhost:8080/messages/unread-count?userId=${userId}`);
+            const response = await axios.get(`https://casino-math-lab-backend.onrender.com/messages/unread-count?userId=${userId}`);
             setUnreadCount(response.data.unreadCount);
             console.log(unreadCount);
         } catch (error) {
@@ -41,7 +41,7 @@ const ChatButton = ({ senderUsername, isMenuOpen }) => {
     const handleFriendClick = async (friendUsername) => {
         try {
             // Mark all messages as read between the sender and the selected friend
-            await axios.post('http://localhost:8080/messages/mark-all-as-read', null, {
+            await axios.post('https://casino-math-lab-backend.onrender.com/messages/mark-all-as-read', null, {
                 params: { sender: senderUsername, receiver: friendUsername }
             });
 

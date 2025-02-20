@@ -21,7 +21,7 @@ const SearchResults = ({ language, currentUserUsername }) => {
         const fetchResults = async () => {
             try {
                 // Search for users
-                const usersResponse = await axios.get(`http://localhost:8080/users/search?query=${query}`);
+                const usersResponse = await axios.get(`https://casino-math-lab-backend.onrender.com/users/search?query=${query}`);
                 const users = usersResponse.data.map((user) => ({ ...user, type: 'user' }));
 
                 // Filter games based on the query
@@ -36,7 +36,7 @@ const SearchResults = ({ language, currentUserUsername }) => {
                 const statusPromises = users.map(async (user) => {
                     if (user.type === 'user' && user.username !== currentUserUsername) {
                         const response = await axios.get(
-                            `http://localhost:8080/users/check-friend-request?senderUsername=${currentUserUsername}&receiverUsername=${user.username}`
+                            `https://casino-math-lab-backend.onrender.com/users/check-friend-request?senderUsername=${currentUserUsername}&receiverUsername=${user.username}`
                         );
                         return { username: user.username, status: response.data.exists };
                     }
@@ -62,7 +62,7 @@ const SearchResults = ({ language, currentUserUsername }) => {
 
     const handleAddFriend = async (receiverUsername) => {
         try {
-            await axios.post('http://localhost:8080/users/send-friend-request', {
+            await axios.post('https://casino-math-lab-backend.onrender.com/users/send-friend-request', {
                 senderUsername: currentUserUsername,
                 receiverUsername,
             });

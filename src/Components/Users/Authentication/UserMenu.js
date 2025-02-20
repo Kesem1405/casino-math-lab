@@ -18,7 +18,7 @@ const UserMenu = ({ user, onLogout }) => {
                         console.error('No token found');
                         return;
                     }
-                    const response = await axios.get('http://localhost:8080/users/get-notifications', {
+                    const response = await axios.get('https://casino-math-lab-backend.onrender.com/users/get-notifications', {
                         params: { username: user.username },
                         headers: {
                             'Authorization': `Bearer ${token}` // Add the token in the Authorization header

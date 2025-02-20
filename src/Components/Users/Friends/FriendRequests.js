@@ -7,7 +7,7 @@ const FriendRequests = ({ username }) => {
     useEffect(() => {
         const fetchFriendRequests = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/users/get-friend-requests?username=${username}`);
+                const response = await axios.get(`https://casino-math-lab-backend.onrender.com/users/get-friend-requests?username=${username}`);
                 setRequests(response.data);
             } catch (error) {
                 console.error('Error fetching friend requests:', error);
@@ -19,7 +19,7 @@ const FriendRequests = ({ username }) => {
 
     const handleResponse = async (requestId, accepted) => {
         try {
-            await axios.post('http://localhost:8080/users/respond-to-friend-request', {
+            await axios.post('https://casino-math-lab-backend.onrender.com/users/respond-to-friend-request', {
                 requestId,
                 accepted
             });
